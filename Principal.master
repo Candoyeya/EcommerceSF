@@ -219,7 +219,7 @@
                         <li class="header">Menu</li>
                         <!-- Retorno a inicio -->
                         <li class="active">
-                            <a href="Prueba2.aspx">
+                            <a href="../../View/Embarque/DiscrepanciaAdm.aspx">
                                 <i class="material-icons">report_problem</i>
                                 <span>Discrepancias</span>
                             </a>
