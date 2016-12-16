@@ -54,16 +54,16 @@ Partial Class Principal
             End If
             'Codigo afecta entrar en historial de facturacion, se revisara el motivo ademas de mantenerlo asi hasta llegar a orden de compra
             '---Update 28/11/2016
-            'If IsNothing(Session("carritonumitems")) Then
-            'carritonoti.Attributes.Add("style", "visibility:hidden")
-            'Else
-            'carritonoti.Attributes.Add("style", "visibility:visible")
-            'carritonoti.InnerHtml = Session("carritonumitems")
-            'End If
+            If IsNothing(Session("carritonumitems")) Then
+                carritonoti.Attributes.Add("style", "visibility:hidden")
+            Else
+                carritonoti.Attributes.Add("style", "visibility:visible")
+                carritonoti.InnerHtml = Session("carritonumitems")
+            End If
 
         Catch ex As Exception
             System.Diagnostics.Debug.Write("checar los permisos" & vbCrLf)
-            Response.Redirect("~/Login.aspx")
+            'Response.Redirect("~/Login.aspx")
         End Try
         datosusu()
     End Sub
@@ -104,7 +104,7 @@ Partial Class Principal
         Session("nom") = Nothing
         Session("carritonumitems") = Nothing
         Session("ivas") = Nothing
-        Response.Redirect("~/frmrazon.aspx")
+        Response.Redirect("~/View/Config/Razon.aspx")
     End Sub
 End Class
 

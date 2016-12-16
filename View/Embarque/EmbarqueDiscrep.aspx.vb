@@ -38,7 +38,6 @@ Partial Class EmbarqueDiscrep
 
                 root2 = root2.LastChild
                 'root2 = root2.FirstChild
-
                 If root2.HasChildNodes Then
                     Dim s As Integer
                     For s = 0 To root2.ChildNodes.Count - 1

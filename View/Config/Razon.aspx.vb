@@ -1,66 +1,58 @@
 ﻿Imports Modulo
 
 Imports System.Xml
-Partial Class frmrazon
+Partial Class View_Config_Razon
     Inherits System.Web.UI.Page
     Public ws As DIS.DIServer
     Dim newItem As ListItem
     Protected Sub btnbuscar_ServerClick(sender As Object, e As EventArgs) Handles btnbuscar.ServerClick
         Try
+            ListBox1.Items.Clear()
+            Dim Respuesta As XmlNode
 
-        ListBox1.Items.Clear()
-        Dim Respuesta As XmlNode
-
-        If radios.SelectedItem.Value = "Nombre" Then
+            If radios.SelectedItem.Value = "Nombre" Then
                 Respuesta = ws.ExecuteSQL(Session("Token"), "Select top 30 CardCode,CardName from OCRD where CardName LIKE '%" & barrabusqueda.Value & "%'  and  validFor='Y'")
-        Else
+            Else
                 Respuesta = ws.ExecuteSQL(Session("Token"), "Select top 30  CardCode,CardName from OCRD where  CardCode LIKE '%" & barrabusqueda.Value & "%'  and  validFor='Y'")
 
-        End If
+            End If
 
-        Dim doc2 As New XmlDocument()
-        doc2.LoadXml(Respuesta.InnerXml)
-        System.Diagnostics.Debug.Write(Respuesta.InnerXml & vbCrLf)
-        Dim root2 As XmlNode = doc2.FirstChild
-        Dim rootin As XmlNode
+            Dim doc2 As New XmlDocument()
+            doc2.LoadXml(Respuesta.InnerXml)
+            System.Diagnostics.Debug.Write(Respuesta.InnerXml & vbCrLf)
+            Dim root2 As XmlNode = doc2.FirstChild
+            Dim rootin As XmlNode
 
-        root2 = root2.LastChild
-        'root2 = root2.FirstChild
+            root2 = root2.LastChild
+            'root2 = root2.FirstChild
+            If root2.HasChildNodes Then
+                Dim s As Integer
+                For s = 0 To root2.ChildNodes.Count - 1
 
+                    rootin = root2.ChildNodes(s)
 
-
-        If root2.HasChildNodes Then
-            Dim s As Integer 
-            For s = 0 To root2.ChildNodes.Count - 1
-                 
-                rootin = root2.ChildNodes(s)
-
-                If rootin.HasChildNodes Then
-                    Dim x As Integer
-                    newItem = New ListItem()
-                    For x = 0 To rootin.ChildNodes.Count - 1
+                    If rootin.HasChildNodes Then
+                        Dim x As Integer
+                        newItem = New ListItem()
+                        For x = 0 To rootin.ChildNodes.Count - 1
 
 
-                        Select Case rootin.ChildNodes(x).Name
-                            Case "CardCode"
-                                If rootin.ChildNodes(x).InnerText = "" Then
-                                    System.Diagnostics.Debug.Write("nada de nada" & vbCrLf)
-                                    x = rootin.ChildNodes.Count - 1
-                                Else
-                                    newItem.Value = rootin.ChildNodes(x).InnerText
-                                End If
-                            Case "CardName"
-                                newItem.Text = rootin.ChildNodes(x).InnerText
-                        End Select
-                    Next x
-                    ListBox1.Items.Add(newItem)
-                End If
-
-
-
-
-            Next s
-        End If
+                            Select Case rootin.ChildNodes(x).Name
+                                Case "CardCode"
+                                    If rootin.ChildNodes(x).InnerText = "" Then
+                                        System.Diagnostics.Debug.Write("nada de nada" & vbCrLf)
+                                        x = rootin.ChildNodes.Count - 1
+                                    Else
+                                        newItem.Value = rootin.ChildNodes(x).InnerText
+                                    End If
+                                Case "CardName"
+                                    newItem.Text = rootin.ChildNodes(x).InnerText
+                            End Select
+                        Next x
+                        ListBox1.Items.Add(newItem)
+                    End If
+                Next s
+            End If
 
 
         Catch ex As Exception
@@ -79,15 +71,12 @@ Partial Class frmrazon
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
 
+        'If Session("colorTop") <> "" Then
 
-
-
-        If Session("colorTop") <> "" Then
-
-            estilo.InnerText = "#page-wrapper { background:" & Session("colorContenido") & ";} #barratop{ background:" & Session("colorTop") & ";} .navbar-top-links {background: " & Session("colorTop") & ";}    "
-            estilo.InnerText += ".infousu{background: " & Session("colorInfo") & ";} body { background :" & Session("colorMenu") & " } .nav{ background :inherit }"
-            logo.Src = "data:image/jpeg;base64," + Session("logo")
-        End If
+        'estilo.InnerText = "#page-wrapper { background:" & Session("colorContenido") & ";} #barratop{ background:" & Session("colorTop") & ";} .navbar-top-links {background: " & Session("colorTop") & ";}    "
+        'estilo.InnerText += ".infousu{background: " & Session("colorInfo") & ";} body { background :" & Session("colorMenu") & " } .nav{ background :inherit }"
+        'logo.Src = "data:image/jpeg;base64," + Session("logo")
+        'End If
 
 
         ws = New DIS.DIServer
@@ -102,24 +91,13 @@ Partial Class frmrazon
                 System.Diagnostics.Debug.Write("todo cool con la sesion papa" & vbCrLf)
             Else
                 System.Diagnostics.Debug.Write("sin session" & vbCrLf)
-                Response.Redirect("frmLogin.aspx")
+                Response.Redirect("~/Login.aspx")
             End If
         Catch ex As Exception
             System.Diagnostics.Debug.Write("checar los permisos" & vbCrLf)
         End Try
 
-
-
-        datosusu()
-
-
-
-
-
-
-
-
-
+        'datosusu()
         'Try
 
 
@@ -139,17 +117,13 @@ Partial Class frmrazon
 
         If ListBox1.SelectedValue = "" Then
 
-            System.Diagnostics.Debug.Write("vacio" & vbCrLf) 
+            System.Diagnostics.Debug.Write("vacio" & vbCrLf)
         Else
             Try
-
-           
-            Dim Respuesta As XmlNode
-
-            
+                Dim Respuesta As XmlNode
                 Respuesta = ws.ExecuteSQL(Session("Token"), "Select top 1  CardCode ,CardName ,Address ,ZipCode, Currency,E_Mail from OCRD where CardCode ='" & ListBox1.SelectedValue & "'")
 
- 
+
                 Dim doc As New XmlDocument()
                 doc.LoadXml(Respuesta.InnerXml)
                 System.Diagnostics.Debug.Write(Respuesta.InnerXml & vbCrLf)
@@ -164,8 +138,6 @@ Partial Class frmrazon
                 If root.HasChildNodes Then
                     Dim i As Integer
                     For i = 0 To root.ChildNodes.Count - 1
-
-
                         Select Case root.ChildNodes(i).Name
 
                             Case "CardCode"
@@ -182,8 +154,6 @@ Partial Class frmrazon
                                 Session("MailDestino") = root.ChildNodes(i).InnerText
                         End Select
                     Next i
-
-                    
                 End If
 
                 Respuesta = ws.ExecuteSQL(Session("Token"), "select Rate from ORTT where RateDate = CONVERT (date, GETDATE()) ")
@@ -193,10 +163,10 @@ Partial Class frmrazon
             Catch ex As Exception
 
             End Try
-            Response.Redirect("frmInicio.aspx")
+            Response.Redirect("~/View/Inicio.aspx")
 
         End If
-        
+
 
     End Sub
     Private Function ReadXML(Xml As String, NodeName As String)
@@ -215,15 +185,14 @@ Partial Class frmrazon
         Return valor
     End Function
     Private Sub datosusu()
-        divUserImg.Src = Session("Imagen")
-        divUserName.InnerHtml = Session("usuName") 
+        'divUserImg.Src = Session("Imagen")
+        'divUserName.InnerHtml = Session("usuName")
     End Sub
 
 
-    Protected Sub CerrarSesion_ServerClick(sender As Object, e As EventArgs) Handles CerrarSesion.ServerClick
-        Session.Abandon()
-        Response.Redirect("frmLogin.aspx")
-    End Sub
+    'Protected Sub CerrarSesion_ServerClick(sender As Object, e As EventArgs) Handles CerrarSesion.ServerClick
+    '   Session.Abandon()
+    '   Response.Redirect("~/Login.aspx")
+    'End Sub
 
-    
 End Class

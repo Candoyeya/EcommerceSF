@@ -1,12 +1,10 @@
 ﻿Imports Modulo
-
 Imports System.Xml
 Imports System.Globalization
 Imports System.IO
 Imports System.Data
-
-
-Partial Class frmOrden
+Imports ConectaClass
+Partial Class View_Ventas_Orden
     Inherits System.Web.UI.Page
     Public ws As DIS.DIServer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -18,7 +16,7 @@ Partial Class frmOrden
             Dim tRow As New TableRow()
             Dim tCell As New TableCell()
             ws = New DIS.DIServer
-            ws.Url = "http://SERVERIII/SAP/DIServer.asmx"
+            ws.Url = Serveriii
             Try
                 Dim valor As String = ""
                 Dim texto As String = ""
@@ -72,7 +70,7 @@ Partial Class frmOrden
         Dim tRow As New TableRow()
         Dim tCell As New TableCell()
         ws = New DIS.DIServer
-        ws.Url = "http://SERVERIII/SAP/DIServer.asmx"
+        ws.Url = Serveriii
         Try
             Respuesta = ws.ExecuteSQL(Session("Token"), "select Rate from ORTT where RateDate = CONVERT (date, GETDATE()) ")
             Session("usdrate") = ReadXML(Respuesta.InnerXml, "rate")
@@ -365,7 +363,7 @@ Partial Class frmOrden
 
                 articuloslista.InnerHtml = divs
             Else
-                ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert(' No se a definido el tipo de cambio del día. Contacte al Administrador ');document.location.href='frmMensajes'; ", True)
+                ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert(' No se a definido el tipo de cambio del día. Contacte al Administrador ');document.location.href='Mensajes'; ", True)
 
             End If
 
@@ -567,10 +565,10 @@ Partial Class frmOrden
 
     Protected Sub aaaaaaaaaaaaaaa_Click(sender As Object, e As EventArgs) Handles aaaaaaaaaaaaaaa.Click
         'checar()
-         
+
         'SetRowData()
 
-          
+
         Dim data As String = ""
         For Each row As GridViewRow In mygrid.Rows
             If row.RowType = DataControlRowType.DataRow Then
@@ -615,6 +613,4 @@ Partial Class frmOrden
     Private Sub agregaralgrid()
 
     End Sub
-
-
 End Class

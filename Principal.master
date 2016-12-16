@@ -77,7 +77,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Call Search -->
                     <li class="   " runat="server" id="carritolink">
-                        <a href="frmOrdenCarrito.aspx">
+                        <a href="../../View/Ventas/OrdenCarrito.aspx">
                             <asp:ContentPlaceHolder ID="CP2" runat="server">
                                 <span class="carrito">Carrito de compra</span><i class="material-icons">shopping_cart</i><span id="carritonoti" runat="server" class="noti_bubble"></span>
                             </asp:ContentPlaceHolder>
@@ -140,7 +140,7 @@
                     </li>
                     <!-- Link orden de compra -->
                     <li>
-                        <a href="Pruebas3.aspx">
+                        <a href="../../View/Ventas/Orden.aspx">
                             <i class="material-icons">shopping_cart</i>
                             <span>Orden de Compra</span>
                         </a>
@@ -219,7 +219,7 @@
                         <li class="header">Menu</li>
                         <!-- Retorno a inicio -->
                         <li class="active">
-                            <a href="../../View/Embarque/DiscrepanciaAdm.aspx">
+                            <a href="../../View/Embarque/Discrepancias.aspx">
                                 <i class="material-icons">report_problem</i>
                                 <span>Discrepancias</span>
                             </a>
@@ -233,7 +233,7 @@
                         </li>
                          <!-- Link Confirmacion de embarque -->
                         <li>
-                            <a href="Prueba2.aspx">
+                            <a href="../../View/Config/Configuracion.aspx">
                                 <i class="material-icons">extension</i>
                                 <span>Configuracion</span>
                             </a>

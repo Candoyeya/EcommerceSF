@@ -12,7 +12,7 @@ Public Class Modulo
         Dim Respuesta As XmlNode
         Dim ws As DIS.DIServer
         ws = New DIS.DIServer
-        ws.Url = "http://localhost/SAP/DIServer.asmx"
+        ws.Url = Serveriii
 
 
         Dim resutadoarray As New ArrayList

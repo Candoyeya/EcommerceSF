@@ -147,7 +147,6 @@ Partial Class Login
                             End If
                             'Case "U_IL_imagen" 
                             '    Session("Imagen") = "data:image/png;base64," + root.ChildNodes(i).InnerText
-
                     End Select
                 Next i
 
@@ -162,13 +161,13 @@ Partial Class Login
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img  from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Session("Imagen") = "data:image/png;base64," & ReadXML(Respuesta.InnerXml, "img")
 
-                        Response.Redirect("View/Inicio.aspx")
+                        Response.Redirect("~/View/Inicio.aspx")
 
 
                     Else
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img   from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Session("Imagen") = "data:image/png;base64," & ReadXML(Respuesta.InnerXml, "img")
-                        Response.Redirect("frmrazon.aspx")
+                        Response.Redirect("~/View/Config/Razon.aspx")
                     End If
                 Else
                     bandera = buscaCliente()
@@ -177,7 +176,7 @@ Partial Class Login
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img  from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Dim imagensiia As String = ReadXML(Respuesta.InnerXml, "img")
                         Session("Imagen") = "data:image/png;base64," & imagensiia
-                        Response.Redirect("View/Inicio.aspx")
+                        Response.Redirect("~/View/Inicio.aspx")
                     Else
                         Alertamail.Style("display") = "block"
                         System.Diagnostics.Debug.Write("usuario desconocido" & vbCrLf)
@@ -230,7 +229,7 @@ Partial Class Login
                 Respuesta = ws.ExecuteSQL(Session("Token"), busqueda)
                 Dim imagensiia As String = ReadXML(Respuesta.InnerXml, "img")
                 Session("Imagen") = "data:image/png;base64," & imagensiia
-                Response.Redirect("View/Inicio.aspx")
+                Response.Redirect("~/View/Inicio.aspx")
 
             Else
                 Alertamail.Style("display") = "block"
@@ -292,12 +291,8 @@ Partial Class Login
             Next x
 
             Respuesta = ws.ExecuteSQL(Session("Token"), "select Rate from ORTT where RateDate = CONVERT (date, GETDATE()) ")
-
             Session("usdrate") = ReadXML(Respuesta.InnerXml, "rate")
-
         End If
-
-
         Return True
 
     End Function

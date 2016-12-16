@@ -354,7 +354,6 @@ Partial Class HistFacturacion
             Response.End()
         Else
             ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento no disponible'); ", True)
-
         End If
 
         buscarFacturas()
@@ -376,9 +375,7 @@ Partial Class HistFacturacion
             Response.End()
         Else
             ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento no disponible'); ", True)
-
         End If
-
         buscarFacturas()
     End Sub
 End Class
