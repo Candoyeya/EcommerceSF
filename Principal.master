@@ -28,8 +28,8 @@
     <!-- Preloader Css -->
     <link href="~/plugins/material-design-preloader/md-preloader.css" rel="stylesheet" />
 
-    <!-- Morris Chart Css nota intentar quitar morris cuando este en productivo-->
-    <link href="~/plugins/morrisjs/morris.css" rel="stylesheet" />
+    <!-- Morris Chart Css nota intentar quitar morris cuando este en productivo
+    <link href="~/plugins/morrisjs/morris.css" rel="stylesheet" />-->
 
     <!-- JQuery DataTable Css -->
     <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet"/>
@@ -39,13 +39,6 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/css/themes/all-themes.css" rel="stylesheet" />
-<!--#Fin CCS--> 
-        <script>    
-        $(document).ready(function() 
-        {
-            $('#Table1').DataTable();
-        });
-    </script>
 </head>
 <body class="theme-red">
     <form id="form1" runat="server">
@@ -77,11 +70,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Call Search -->
                     <li class="   " runat="server" id="carritolink">
-                        <a href="../../View/Ventas/OrdenCarrito.aspx">
-                            <asp:ContentPlaceHolder ID="CP2" runat="server">
-                                <span class="carrito">Carrito de compra</span><i class="material-icons">shopping_cart</i><span id="carritonoti" runat="server" class="noti_bubble"></span>
-                            </asp:ContentPlaceHolder>
-                        </a>
+                            <a href="../../View/Ventas/Ordencarrito.aspx">
+                                <asp:ContentPlaceHolder ID="CP2" runat="server">
+                                    <span class="carrito">Carrito de compra</span><i class="material-icons">shopping_cart</i><span id="carritonoti" runat="server" class="label-count"></span>
+                                </asp:ContentPlaceHolder>
+                            </a>
                     </li>
                     <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">

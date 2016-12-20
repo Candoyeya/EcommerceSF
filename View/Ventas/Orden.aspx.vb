@@ -289,7 +289,6 @@ Partial Class View_Ventas_Orden
                                         Else
                                             twoDarray(s, x + 2) = Session("ftp") + "imagenes/" + rootin.ChildNodes(x).InnerText
                                         End If
-
                                     Case "InvntryUom"
                                         twoDarray(s, x + 2) = rootin.ChildNodes(x).InnerText
 
@@ -323,8 +322,6 @@ Partial Class View_Ventas_Orden
                             ViewState("Customers") = dt
 
                             Me.BindGrid()
-
-
 
                             '    divs = divs + " <div class='row articulo'> <div class='col-xs-12 col-sm-3  col-md-2 col-lg-2' style='text-align: center;'>               <div  class='articuloimagen' ><img  class='articuloimagen'  src ='" & twoDarray(v, 7) & "'  />                     </div>                  </div>                  <div class='col-xs-12 col-sm-6  col-md-4 col-lg-4' style='text-align: center;'>                   " &
                             '"<a class='titulodesc'  > <span  id='title" & twoDarray(v, 1) & "'>" & twoDarray(v, 3) & "</span></a>    <div class='tituloparte'  >  Codigo de articulo: <span class='negritas'>" & twoDarray(v, 1) & "</span>                     </div>                      <div class=' '>                         " &
@@ -544,8 +541,6 @@ Partial Class View_Ventas_Orden
                     tRow.Cells.Add(tCell)
                     tCell = New TableCell()
                     tCell.Text = carritocan(i)
-
-
                     tRow.Cells.Add(tCell)
                     Table1.Rows.Add(tRow)
                 Next
@@ -567,8 +562,6 @@ Partial Class View_Ventas_Orden
         'checar()
 
         'SetRowData()
-
-
         Dim data As String = ""
         For Each row As GridViewRow In mygrid.Rows
             If row.RowType = DataControlRowType.DataRow Then

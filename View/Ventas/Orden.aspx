@@ -2,9 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="CP2" Runat="Server">
-</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+
 <!--Inicia Cuerpo pagina-->
         <div class="container-fluid">           
             <!--<div class="block-header">
@@ -15,6 +16,8 @@
             </div>       -->     
             <!-- Exportable Table -->
             <div class="row clearfix">
+
+            <link href="Content/ordenestilo.css" rel="stylesheet" />
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
@@ -39,60 +42,31 @@
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-8 " runat="server" id="minicarrito">
                                     <div style="width: auto; overflow-x: auto;">
                                         <div style="min-width: 500px;">
-                                            <asp:Table ID="Table1" class="table abc" runat="server" Style="width: 100%; min-width: 500px">
+                                            <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server" Style="width: 100%; min-width: 500px">
                                                 <asp:TableHeaderRow>
                                                     <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
                                                     <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
                                                 </asp:TableHeaderRow>
                                             </asp:Table>
-
                                         </div>
                                     </div>
-
-                                </div>
-
-
-                            </div>
-
-
-
-
-
-
-
+                                </div>                           </div>
                             <%--++++++++++++++++++++++++++++++++++++++++--%>
                             <div runat="server" id="articuloslista"></div>
                             <%--+++++++++++++++++++++++++++++++++++++++++++++++--%>
-
-
-
+                            
                             <div class="row  ">
-
-
-
-
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12 " runat="server" id="Div1">
                                     <asp:GridView ID="mygrid" runat="server" Width="100%" Style="width: 100%;"
-                                        ShowFooter="False" AutoGenerateColumns="False"
+                                        ShowFooter="false" AutoGenerateColumns="False"
                                         CellPadding="4" ForeColor="#333333"
-                                        GridLines="None">
+                                        GridLines="None"
+                                        class="table table-bordered table-striped table-hover dataTable js-exportable">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Select">
                                                 <ItemTemplate>
-
-
-
-                                                    <asp:CheckBox ID="CheckBox1" Style="zoom: 1.5;" runat="server" />
-
+                                                    <asp:CheckBox ID="CheckBox1"  runat="server" />
                                                    <%--  <input type="checkbox" id="checkprueba" name="change" runat="server" value="1" data-toggle="checkbox-x" data-size="xl" data-three-state="false" />--%>
-
-
-
-
-
-
-
-
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Cantidad">
@@ -102,24 +76,13 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="codigo" HeaderText="Codigo" />
                                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                                            <asp:BoundField DataField="cosa" HeaderText="Precio" />
+                                            <asp:BoundField DataField="cosa" HeaderText="Precio" />                                            
                                         </Columns>
                                     </asp:GridView>
                                     <br />
                                     <asp:Button ID="aaaaaaaaaaaaaaa" runat="server" Text="AGREGAR" class="btn  btn-large  btn-success" Style="float: right; height: 50px; width: 250px" />
 
                                 </div>
-
-
-
-
-
-
-
-
-
-
-
                                 <div class="col-xs-12 col-sm-6  col-md-6 col-lg-6 ">
                                     <asp:DropDownList ID="DropDownList1" runat="server">
                                         <asp:ListItem Text="Todos" Value="all"></asp:ListItem>
@@ -133,15 +96,10 @@
                             <input type="text" runat="server" id="idpagina" clientidmode="Static" style="display: none" />
                             <%--<button id="secretbutton" runat="server" class="btn btn-default" type="button" onserverclick="agregar" style="display: none">dois</button>--%>
                             <button id="botonpagina" runat="server" class="btn btn-default" type="button" style="display: none">dois</button>
-
-
+                            
                             <%-- <button id="Button1" runat="server" class="btn btn-default" type="button" onclick="envioid(id)"  >mete id a textbox</button>
                             <button id="Button2" runat="server" class="btn btn-default" type="button" onclick="envioid(id)" >mete id a textbox</button>
                             <button id="Button3" runat="server" class="btn btn-default" type="button" onclick="envioid(id)" >mete id a textbox</button>--%>
-
-
-
-
 
                             <div style="text-align: center;" runat="server" id="PaginationDiv">
                             </div>
@@ -182,9 +140,6 @@
                                     //document.getElementById("articprecio").value = document.getElementById("precio"+(as.substring(4, as.length  ))).innerHTML;
                                     //elem.value = "My default value";
                                 }
-
-
-
                             </script>
                         </div>
                     </div>
@@ -192,5 +147,6 @@
             </div>
             <!-- #END# Exportable Table -->           
         </div>
+
 </asp:Content>
 

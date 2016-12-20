@@ -12,7 +12,6 @@ Partial Class View_Ventas_OrdenCarrito
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim rueba As String = "Prueba"
 
-
         If Not Page.IsPostBack Then
             TablaPolo = "<table     style=' text-align: center;width: 100%; min-width: 600px;border: solid 1px #575656; background: #ffffff'><tr><th>Articulo</th><th>Cantidad</th><th>Precio unitario</th><th>Descuento</th><th>Precio tras descuento</th><th>Precio total</th></tr> "
 

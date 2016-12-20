@@ -2,8 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="CP2" Runat="Server">
-</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <!--Inicia Cuerpo pagina-->
         <div class="container-fluid">           
@@ -37,7 +36,7 @@
 
                                 <div style="min-width: 600px;">
 
-                                    <asp:Table ID="Table1" class="table abc" runat="server" Style="width: 100%; min-width: 600px">
+                                    <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server" Style="width: 100%; min-width: 600px">
                                         <asp:TableHeaderRow>
                                             <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
                                             <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
