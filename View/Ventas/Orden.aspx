@@ -4,7 +4,12 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<!--script checkbox
 
+
+    <script src="Scripts/checkbox-x.min.js"></script>
+    <link href="Content/theme-krajee-flatblue.min.css" rel="stylesheet" />
+    <link href="Content/checkbox-x.min.css" rel="stylesheet" />-->
 
 <!--Inicia Cuerpo pagina-->
         <div class="container-fluid">           
@@ -16,21 +21,32 @@
             </div>       -->     
             <!-- Exportable Table -->
             <div class="row clearfix">
-
-            <link href="Content/ordenestilo.css" rel="stylesheet" />
+            <!--<style>
+            input[type=checkbox]
+            {
+              /* Double-sized Checkboxes */
+              -ms-transform: scale(1.4); /* IE */
+              -moz-transform: scale(1.4); /* FF */
+              -webkit-transform: scale(1.42); /* Safari and Chrome */
+              -o-transform: scale(1.4); /* Opera */
+              padding: 10px;
+            }
+            
+            </style>
+            <link href="Content/ordenestilo.css" rel="stylesheet" />-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
+                            <h3>
                                 Orden de Compra
-                            </h2>
+                            </h3>
                             
                         </div>
                         
                         <div class="body">    
                             <div class="row  ">
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-4 ">
-                                    <div class="input-group" style="max-width: 300px">
+                                    <!--<div class="input-group" style="max-width: 300px">
                                         <%--barra de busqueda--%>
                                         <input type="text" runat="server" id="barrabusqueda" class="form-control" onkeypress="runScript(event)" placeholder="Buscar por..." />
                                         <span class="input-group-btn">
@@ -42,7 +58,7 @@
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-8 " runat="server" id="minicarrito">
                                     <div style="width: auto; overflow-x: auto;">
                                         <div style="min-width: 500px;">
-                                            <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server" Style="width: 100%; min-width: 500px">
+                                            <asp:Table ID="Table1"  runat="server" Style="width: 100%; min-width: 500px">
                                                 <asp:TableHeaderRow>
                                                     <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
                                                     <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
@@ -50,7 +66,8 @@
                                             </asp:Table>
                                         </div>
                                     </div>
-                                </div>                           </div>
+                                </div>-->
+                            </div>
                             <%--++++++++++++++++++++++++++++++++++++++++--%>
                             <div runat="server" id="articuloslista"></div>
                             <%--+++++++++++++++++++++++++++++++++++++++++++++++--%>
@@ -59,19 +76,21 @@
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12 " runat="server" id="Div1">
                                     <asp:GridView ID="mygrid" runat="server" Width="100%" Style="width: 100%;"
                                         ShowFooter="false" AutoGenerateColumns="False"
-                                        CellPadding="4" ForeColor="#333333"
+                                        CellPadding="4" 
                                         GridLines="None"
-                                        class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                        Class="gvv display">
                                         <Columns>
-                                            <asp:TemplateField HeaderText="Select">
-                                                <ItemTemplate>
-                                                    <asp:CheckBox ID="CheckBox1"  runat="server" />
-                                                   <%--  <input type="checkbox" id="checkprueba" name="change" runat="server" value="1" data-toggle="checkbox-x" data-size="xl" data-three-state="false" />--%>
+                                            <%--CheckBox para seleccionar varios registros...--%>
+                                            <asp:TemplateField ItemStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>  
+                                                    <label class="btn btn-default"><asp:CheckBox ID="CheckBox1" runat="server"/></label>	
+                                                  <%-- <input type="checkbox" id="CheckBox1" name="change" runat="server" value="1" data-toggle="checkbox-x" data-size="xl" data-three-state="false" class="filled-in"/>--%>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                            <%--campos editables...--%>
                                             <asp:TemplateField HeaderText="Cantidad">
                                                 <ItemTemplate>
-                                                    <asp:TextBox ID="txtcantidad" runat="server" size="4" Text="1"></asp:TextBox>
+                                                    <asp:TextBox ID="txtcantidad" runat="server" size="4" Width="60px" Text="1" CssClass="form-control"></asp:TextBox>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="codigo" HeaderText="Codigo" />
@@ -80,7 +99,7 @@
                                         </Columns>
                                     </asp:GridView>
                                     <br />
-                                    <asp:Button ID="aaaaaaaaaaaaaaa" runat="server" Text="AGREGAR" class="btn  btn-large  btn-success" Style="float: right; height: 50px; width: 250px" />
+                                    <asp:Button ID="BtnAgregar" runat="server" Text="AGREGAR" class="btn  btn-large  btn-success" Style="float: right; height: 50px; width: 250px" />
 
                                 </div>
                                 <div class="col-xs-12 col-sm-6  col-md-6 col-lg-6 ">
@@ -147,6 +166,40 @@
             </div>
             <!-- #END# Exportable Table -->           
         </div>
-
+<%--Script java...--%>
+    <%--Cargar tabla con opciones y traducir al español...--%>
+    <%--Ultima actualizacion 21/12/2016...--%>
+<script>
+        $(document).ready(function () {
+            $(".gvv").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+            $('#mygrid').DataTable();
+    } );
+</script>
 </asp:Content>
 

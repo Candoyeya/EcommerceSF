@@ -9,7 +9,7 @@ Partial Class View_Ventas_Orden
     Public ws As DIS.DIServer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Session.Timeout = 20
-        actualizacarritochiquito()
+        'actualizacarritochiquito()
         If Not Page.IsPostBack Then
             DropDownList1.Visible = False
             'Busqueda de facturas venciadas Balance
@@ -106,12 +106,6 @@ Partial Class View_Ventas_Orden
                     sqldato = sqldato & ") and t2.validFor='Y' and t3.WhsName ='" & wharehose & "' and  (t1.OnHand - t1.IsCommited -t1.OnOrder)   &gt;0 and t2.U_IL_iva&lt;&gt;'' "
                 Else
                     sqldato = sqldato & ")and t2.validFor='Y' and t3.WhsName ='" & wharehose & "'  and t2.U_IL_iva&lt;&gt;'' "
-
-                    '            sqldato = "select  COUNT(*)   as disp   FROM OITW t1  " &
-                    '"inner join OITM t2 on t1.ItemCode = t2.ItemCode" &
-                    '" inner join OWHS t3 on t1.WhsCode = t3.WhsCode" &
-                    ' " where  ( t1.ItemCode like  '%" & Session("busqueda") & "%' or  t1.ItemCode like '%" & Session("busqueda") & "%' or t2.ItemName like '%" & Session("busqueda") & "%' )  " &
-                    '"and t3.WhsName ='" & wharehose & "' and t2.U_IL_iva&lt;&gt;'' "
 
                 End If
                 Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
@@ -355,10 +349,12 @@ Partial Class View_Ventas_Orden
                         End If
                     End If
                 Next v
-                divs = "<div class='row ' ><div class='col-xs-12 col-sm-6  col-md-6 col-lg-6 busqueda ' style=''>    <div><font class='busquedatexto' style=''>Búsqueda  </font><font class='busquedatextovalor'  style=''>" & Session("busqueda") & "</font></div>                 </div>                  <div class='col-xs-12 col-sm-6  col-md-6 col-lg-6 '> " &
+                divs = "<div class='row ' >" &
+                        "<div class='col-xs-12 col-sm-6  col-md-6 col-lg-6 busqueda ' style=''>" &
+                        "    <div><font class='busquedatexto' style=''>Búsqueda  </font><font class='busquedatextovalor'  style=''>" & Session("busqueda") & "</font></div>                 </div>                  <div class='col-xs-12 col-sm-6  col-md-6 col-lg-6 '> " &
                                    "<div class='productoencontrado'>" & totalrows & " Productos Encontrados</div>                 </div>             </div> " + divs
 
-                articuloslista.InnerHtml = divs
+                ' articuloslista.InnerHtml = divs
             Else
                 ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert(' No se a definido el tipo de cambio del día. Contacte al Administrador ');document.location.href='Mensajes'; ", True)
 
@@ -485,72 +481,14 @@ Partial Class View_Ventas_Orden
                 mpdiv.InnerHtml = mpdiv.InnerText + 1
             End If
             mpdiv.Attributes.Add("style", "visibility:visible")
-            actualizacarritochiquito()
+            'actualizacarritochiquito()
             ' ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert(' Se agregó  " & articnom.Value & " al carrito') ", True)
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub actualizacarritochiquito()
-        Try
-            Dim carrito As ArrayList = New ArrayList
-            Dim carritocan As ArrayList = New ArrayList
-            Dim carritoprecio As ArrayList = New ArrayList
-            Dim carritoitem As ArrayList = New ArrayList
-            Dim carritoiva As ArrayList = New ArrayList
-            Dim mystring As String
 
-            Dim restring As String
-            Dim totalxarticulo As Double = 0
-            Dim totaliva As Double = 0
-            Dim totalivafinal As Double = 0
-            Dim fechastring = Today.ToString("yyyyMMdd")
-            Dim subtotal As Double = 0
-            Dim sqldato As String
-            Dim tRow As New TableRow()
-            Dim tCell As New TableCell()
-
-
-            Table1.Rows.Clear()
-            tRow = New TableRow()
-            tCell = New TableHeaderCell()
-            tCell.Text = "Articulo"
-            tRow.Cells.Add(tCell)
-            tCell = New TableHeaderCell()
-            tCell.Text = "Cantidad"
-            tRow.Cells.Add(tCell)
-            Table1.Rows.Add(tRow)
-
-            If IsNothing(Session("carrito")) Then
-                Table1.Visible = False
-
-            Else
-                Table1.Visible = True
-
-                carrito = CType(Session("carrito"), ArrayList)
-                carritocan = CType(Session("carritocan"), ArrayList)
-                carritoprecio = CType(Session("precio"), ArrayList)
-                carritoitem = CType(Session("nom"), ArrayList)
-
-
-                For i As Integer = 0 To carrito.Count - 1
-                    tRow = New TableRow()
-                    tCell = New TableCell()
-                    tCell.Text = carritoitem(i)
-                    tRow.Cells.Add(tCell)
-                    tCell = New TableCell()
-                    tCell.Text = carritocan(i)
-                    tRow.Cells.Add(tCell)
-                    Table1.Rows.Add(tRow)
-                Next
-
-            End If
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
 
     Protected Sub botonpagina_ServerClick(sender As Object, e As EventArgs) Handles botonpagina.ServerClick
         Session("pagIni") = idpagina.Value
@@ -558,7 +496,7 @@ Partial Class View_Ventas_Orden
     End Sub
 
 
-    Protected Sub aaaaaaaaaaaaaaa_Click(sender As Object, e As EventArgs) Handles aaaaaaaaaaaaaaa.Click
+    Protected Sub BtnAgregar_Click(sender As Object, e As EventArgs) Handles BtnAgregar.Click
         'checar()
 
         'SetRowData()

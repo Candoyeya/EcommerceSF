@@ -42,6 +42,9 @@
                         <asp:ListItem Text="50 Articulos" Value="50"></asp:ListItem>
                         <asp:ListItem Text="100 Articulos" Value="100"></asp:ListItem>
                         <asp:ListItem Text="200 Articulos" Value="200"></asp:ListItem>
+                        <asp:ListItem Text="10,000 Articulos" Value="10000"></asp:ListItem>
+                        <asp:ListItem Text="20,000 Articulos" Value="20000"></asp:ListItem>
+                        <asp:ListItem Text="30,000 Articulos" Value="30000"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

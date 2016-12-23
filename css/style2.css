@@ -1,5 +1,5 @@
-﻿/* Navbar ====================================== */
-@import url(materialize.css);
+﻿/* Navbar ====================================== 
+@import url(materialize.css);*/
 .navbar {
   font-family: "Roboto", sans-serif;
   -webkit-border-radius: 0;
@@ -6243,7 +6243,7 @@ fieldset[disabled] .form-control {
   text-align: center; }
   .page-loader-wrapper p {
     font-size: 13px;
-    margin-top: 10px;
+    margin-top: 80px;
     font-weight: bold;
     color: #444; }
   .page-loader-wrapper .loader {
