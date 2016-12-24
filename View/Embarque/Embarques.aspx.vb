@@ -43,9 +43,9 @@ Partial Class Embarques
             Dim finic As Integer
 
             'Revolution PAgin
-            Dim configcant As Integer = Session("configartcan")
+            Dim configcant As Integer = 10
             If totalrows > configcant Then
-                Dim nacho As Integer = Math.Ceiling(totalrows / Session("configartcan"))
+                Dim nacho As Integer = Math.Ceiling(totalrows / configcant)
 
                 PaginationDiv.InnerHtml = " <ul class='pagination  pagination-lg'>"
 
@@ -143,12 +143,12 @@ Partial Class Embarques
 
                                 Select Case rootin.ChildNodes(x).Name
                                     Case "RowNum"
-                                        If CInt(rootin.ChildNodes(x).InnerText) > (Session("configartcan") * Session("pagIni")) Then
+                                        If CInt(rootin.ChildNodes(x).InnerText) > (configcant * Session("pagIni")) Then
                                             bandera = False
                                         End If
 
                                         If Session("pagIni") <> 1 Then
-                                            If CInt(rootin.ChildNodes(x).InnerText) < (Session("configartcan") * (Session("pagIni") - 1)) Then
+                                            If CInt(rootin.ChildNodes(x).InnerText) < (configcant * (Session("pagIni") - 1)) Then
                                                 bandera = False
                                             End If
                                         End If

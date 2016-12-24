@@ -24,6 +24,9 @@
     <!-- Animation Css 
     <link href="~/plugins/animate-css/animate.css" rel="stylesheet" />-->
 
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+
     <!-- Preloader Css -->
     <link href="~/plugins/material-design-preloader/md-preloader.css" rel="stylesheet" />
 
@@ -47,34 +50,16 @@
     <!-- Bootstrap Core Js         
     <script src="../../plugins/bootstrap/js/bootstrap.js"></script>-->
     <script src="../../js/alt/bootstrap.min.js"></script>
-    <!-- Select Plugin Js 
-    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>-->
 
-    <!-- Slimscroll Plugin Js 
-    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <script type="text/javascript" language="javascript" src="../../js/alt/jquery-1.12.3.min.js"></script>-->
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
 
-    <!-- Jquery DataTable Plugin Js
-    <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>   
-    <script src="js/alt/jquery.dataTables.min.js" > </script>-->
+    <!-- Jquery DataTable Plugin Js-->
     <script src="../../js/alt/jquery.dataTables.min.js" > </script>
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
-    <!--<script src="../../js/pages/tables/jquery-datatable.js"></script>
-      <script src="../../js/General.js"></script>-->
-    <!-- Demo Js 
-    <script src="~/js/demo.js"></script>       
-    <script src="../../js/alt/sb-admin-2.js"></script> -->  
+
+
 <!--#Termina JS--> 
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -282,7 +267,7 @@
                     &copy; 2016 <a href="javascript:void(0);">E-commerce Surtidora Ferretera</a>.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 1.0.3
+                    <b>Version: </b> 16.12.23
                 </div>
             </div>
             <!-- #Footer -->           

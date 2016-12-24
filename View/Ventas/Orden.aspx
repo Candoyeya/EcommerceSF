@@ -4,13 +4,6 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<!--script checkbox
-
-
-    <script src="Scripts/checkbox-x.min.js"></script>
-    <link href="Content/theme-krajee-flatblue.min.css" rel="stylesheet" />
-    <link href="Content/checkbox-x.min.css" rel="stylesheet" />-->
-
 <!--Inicia Cuerpo pagina-->
         <div class="container-fluid">           
             <!--<div class="block-header">
@@ -21,57 +14,14 @@
             </div>       -->     
             <!-- Exportable Table -->
             <div class="row clearfix">
-            <!--<style>
-            input[type=checkbox]
-            {
-              /* Double-sized Checkboxes */
-              -ms-transform: scale(1.4); /* IE */
-              -moz-transform: scale(1.4); /* FF */
-              -webkit-transform: scale(1.42); /* Safari and Chrome */
-              -o-transform: scale(1.4); /* Opera */
-              padding: 10px;
-            }
-            
-            </style>
-            <link href="Content/ordenestilo.css" rel="stylesheet" />-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h3>
                                 Orden de Compra
-                            </h3>
-                            
-                        </div>
-                        
-                        <div class="body">    
-                            <div class="row  ">
-                                <div class="col-xs-12 col-sm-12  col-md-12 col-lg-4 ">
-                                    <!--<div class="input-group" style="max-width: 300px">
-                                        <%--barra de busqueda--%>
-                                        <input type="text" runat="server" id="barrabusqueda" class="form-control" onkeypress="runScript(event)" placeholder="Buscar por..." />
-                                        <span class="input-group-btn">
-                                            <button id="btnbuscar" runat="server" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12  col-md-12 col-lg-8 " runat="server" id="minicarrito">
-                                    <div style="width: auto; overflow-x: auto;">
-                                        <div style="min-width: 500px;">
-                                            <asp:Table ID="Table1"  runat="server" Style="width: 100%; min-width: 500px">
-                                                <asp:TableHeaderRow>
-                                                    <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
-                                                    <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
-                                                </asp:TableHeaderRow>
-                                            </asp:Table>
-                                        </div>
-                                    </div>
-                                </div>-->
-                            </div>
-                            <%--++++++++++++++++++++++++++++++++++++++++--%>
-                            <div runat="server" id="articuloslista"></div>
-                            <%--+++++++++++++++++++++++++++++++++++++++++++++++--%>
-                            
+                            </h3>                            
+                        </div>                        
+                        <div class="body">   
                             <div class="row  ">
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12 " runat="server" id="Div1">
                                     <asp:GridView ID="mygrid" runat="server" Width="100%" Style="width: 100%;"
@@ -95,7 +45,13 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="codigo" HeaderText="Codigo" />
                                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                                            <asp:BoundField DataField="cosa" HeaderText="Precio" />                                            
+                                            <asp:BoundField DataField="cosa" HeaderText="Precio" />  
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <!--<img src=<# Eval("ProfilePicture") %> class="img-thumbnail" width="150" />-->
+                                                    <a href="<%# Eval("ProfilePicture") %>" target='_blank'><img alt='' src="<%# Eval("ProfilePicture") %>" width="150" class="img-rounded"/></a>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                         
                                         </Columns>
                                     </asp:GridView>
                                     <br />
@@ -137,11 +93,7 @@
                                     //reload(); 
                                 }
 
-                                function runScript(e) {
-                                    if (e.keyCode == 13) {
-                                        document.getElementById('<%= btnbuscar.ClientID%>').click();
-                                    }
-                                }
+                                
                                 //Called this method on any button click  event for Testing
                                 function envioid(as) {
                                     //PageMethods.agregar(Param1);
@@ -168,7 +120,7 @@
         </div>
 <%--Script java...--%>
     <%--Cargar tabla con opciones y traducir al español...--%>
-    <%--Ultima actualizacion 21/12/2016...--%>
+    <%--Ultima actualizacion 23/12/2016...--%>
 <script>
         $(document).ready(function () {
             $(".gvv").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({

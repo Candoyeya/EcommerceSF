@@ -20,20 +20,7 @@
                         <div class="header">
                             <h3>
                                 Discrepancias En Pedido
-                            </h3>
-                            <!--
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>-->
+                            </h3>                            
                         </div>
                         <div class="body">
                             <div>
@@ -86,7 +73,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group spinner" data-trigger="spinner">
                                             <div class="form-line">
-                                                <input type="text" runat="server" id="Cantidad" class="form-control text-center" value="1" data-rule="quantity">
+                                                <input type="text" runat="server" id="Cantidad" class="form-control text-center" value="1" data-rule="quantity"/>
                                             </div>
                                             <span class="input-group-addon">
                                                 <a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>

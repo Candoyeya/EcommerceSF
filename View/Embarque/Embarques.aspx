@@ -36,7 +36,7 @@
                             </ul>-->
                         </div>
                         <div class="body">
-                            <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable js-exportable" runat="server">
+                            <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server">
                                <asp:TableHeaderRow >  
                                     <asp:TableHeaderCell>Fecha</asp:TableHeaderCell>
                                     <asp:TableHeaderCell>Entrega</asp:TableHeaderCell>

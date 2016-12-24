@@ -57,12 +57,12 @@ Partial Class View_Ventas_Orden
         End If
     End Sub
     Dim Respuesta As XmlNode
-    Protected Sub btnbuscar_ServerClick(sender As Object, e As EventArgs) Handles btnbuscar.ServerClick
-        Session("busqueda") = barrabusqueda.Value
-        Session("pagIni") = 1
-        buscarFinale()
+    ' Protected Sub btnbuscar_ServerClick(sender As Object, e As EventArgs) Handles btnbuscar.ServerClick
+    '    Session("busqueda") = barrabusqueda.Value
+    '   Session("pagIni") = 1
+    '  buscarFinale()
 
-    End Sub
+    'End Sub
     Dim pattern As String = " "
     Dim elements() As String
     Public Sub buscarFinale()
@@ -219,6 +219,7 @@ Partial Class View_Ventas_Orden
                 dt.Columns.Add(New DataColumn("codigo", GetType(String)))
                 dt.Columns.Add(New DataColumn("nombre", GetType(String)))
                 dt.Columns.Add(New DataColumn("cosa", GetType(String)))
+                dt.Columns.Add(New DataColumn("ProfilePicture", GetType(String)))
                 'dr = dt.NewRow()
 
                 'dr("Col1") = String.Empty
@@ -311,6 +312,7 @@ Partial Class View_Ventas_Orden
                             dr("codigo") = twoDarray(v, 1)
                             dr("nombre") = twoDarray(v, 3)
                             dr("cosa") = twoDarray(v, 4)
+                            dr("ProfilePicture") = twoDarray(v, 7)
                             dt.Rows.Add(dr)
 
                             ViewState("Customers") = dt
@@ -334,6 +336,8 @@ Partial Class View_Ventas_Orden
                             dr("codigo") = twoDarray(v, 1)
                             dr("nombre") = twoDarray(v, 3)
                             dr("cosa") = twoDarray(v, 4)
+                            'dr("ImageURL") = twoDarray(v, 7)
+                            dr("ProfilePicture") = twoDarray(v, 7)
                             dt.Rows.Add(dr)
 
                             ViewState("Customers") = dt
