@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Web.Configuration
+Imports System.Xml
 
 Public Class ConectaClass
 
@@ -11,4 +12,7 @@ Public Module ConectaMod
     Public Serveriii As String = System.Web.HttpContext.Current.Server.HtmlEncode("http://SERVERIII/SAP/DIServer.asmx")
     'Public Serveriii As String = System.Web.HttpContext.Current.Server.HtmlEncode("http://surtidoraserver.ddns.net/SAP/DIServer.asmx")
     'Public ws.Url = "http://SERVERIII/SAP/DIServer.asmx"
+    Public XmlDoc As New XmlDocument
+    Public Node As XmlNodeList
+    Public Respuesta As XmlNode
 End Module

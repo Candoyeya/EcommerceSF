@@ -49,7 +49,7 @@
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <!--<img src=<# Eval("ProfilePicture") %> class="img-thumbnail" width="150" />-->
-                                                    <a href="<%# Eval("ProfilePicture") %>" target='_blank'><img alt='' src="<%# Eval("ProfilePicture") %>" width="150" class="img-rounded"/></a>
+                                                    <a href="<%# Eval("ProfilePicture") %>" target='_blank'><img alt='' src="<%# Eval("ProfilePicture") %>" width="150" height="150" class="img-rounded"/></a>
                                                 </ItemTemplate>
                                             </asp:TemplateField>                                         
                                         </Columns>
