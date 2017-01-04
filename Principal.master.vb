@@ -63,7 +63,7 @@ Partial Class Principal
 
         Catch ex As Exception
             System.Diagnostics.Debug.Write("checar los permisos" & vbCrLf)
-            'Response.Redirect("~/Login.aspx")
+            Response.Redirect("~/Login.aspx")
         End Try
         datosusu()
     End Sub

@@ -152,18 +152,13 @@ Partial Class Login
 
                 If bandera = True Then
                     System.Diagnostics.Debug.Write("continua" & vbCrLf)
-
-
                     If Session("usutipo") = "admin" Then
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select Rate from ORTT where RateDate = CONVERT (date, GETDATE()) ")
 
                         Session("usdrate") = ReadXML(Respuesta.InnerXml, "rate")
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img  from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Session("Imagen") = "data:image/png;base64," & ReadXML(Respuesta.InnerXml, "img")
-
-                        Response.Redirect("~/View/Inicio.aspx")
-
-
+                        Response.Redirect("~/View/Embarque/DiscrepanciaAdm.aspx")
                     Else
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img   from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Session("Imagen") = "data:image/png;base64," & ReadXML(Respuesta.InnerXml, "img")
@@ -188,8 +183,6 @@ Partial Class Login
         Else
 
             Try
-
-
                 Dim sqldato As String = "select *   from [Ecom].[dbo].[color]  "
                 Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
                 Session("colorTop") = ReadXML(Respuesta.InnerXml, "barratop")

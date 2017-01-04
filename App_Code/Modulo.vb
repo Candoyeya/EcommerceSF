@@ -40,7 +40,6 @@ Public Class Modulo
             Else
                 resutadoarray.Add(descuento)
                 resutadoarray.Add(precioIni)
-
             End If
         Else
             ' Respuesta = ws.ExecuteSQL(session, "select Discount,Price  from OSPP where ItemCode='" & itemcode & "' and CardCode ='" & cardcode & "'   ")

@@ -13,31 +13,19 @@ Partial Class View_Config_Configuracion
         '
         'End If
 
-
-
         If Not Page.IsPostBack Then
-
-
             Color0.Value = Session("colorTop")
             Color1.Value = Session("colorInfo")
             Color2.Value = Session("colorMenu")
             Color3.Value = Session("colorContenido")
 
-
-
-
             Dim tRow As New TableRow()
             Dim tCell As New TableCell()
 
             ws = New DIS.DIServer
-            ws.Url = "http://SERVERIII/SAP/DIServer.asmx"
-
-
+            ws.Url = Serveriii
             Try
-
                 Dim Respuesta As XmlNode
-
-
                 Dim sqldato As String = "select top 1 U_arttype as tipo,U_artcan as cantidad ,rutaxml,rutapdf,tipodoc,[smtp],[puerto],[username], [acount],[password],[ssl] from [Ecom].[dbo].[@IL_CONFIG_E]   "
                 Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
                 Session("configarttype") = ReadXML(Respuesta.InnerXml, "tipo")
@@ -46,16 +34,12 @@ Partial Class View_Config_Configuracion
                 Session("rutaxml") = ReadXML(Respuesta.InnerXml, "rutapdf")
                 Session("tipodocventas") = ReadXML(Respuesta.InnerXml, "tipodoc")
 
-
                 Session("smtp") = ReadXML(Respuesta.InnerXml, "smtp")
                 Session("puerto") = ReadXML(Respuesta.InnerXml, "puerto")
                 Session("username") = ReadXML(Respuesta.InnerXml, "username")
                 Session("acount") = ReadXML(Respuesta.InnerXml, "acount")
                 Session("password") = ReadXML(Respuesta.InnerXml, "password")
                 Session("ssl") = ReadXML(Respuesta.InnerXml, "ssl")
-
-
-
 
                 inputpdf.Value = Session("rutapdf")
                 inputxml.Value = Session("rutaxml")
@@ -68,11 +52,6 @@ Partial Class View_Config_Configuracion
                 inputUsername.Value = Session("username")
                 inputAcount.Value = Session("acount")
                 inputPassword.Value = Session("password")
-
-
-
-
-
 
             Catch ex As Exception
             End Try
@@ -97,20 +76,13 @@ Partial Class View_Config_Configuracion
     'End Function
 
     Protected Sub confirmar_Click(sender As Object, e As EventArgs) Handles confirmar.Click
-
-
         'Busqueda de facturas venciadas Balance
         Dim tRow As New TableRow()
         Dim tCell As New TableCell()
 
         ws = New DIS.DIServer
-        ws.Url = "http://SERVERIII/SAP/DIServer.asmx"
-
-
+        ws.Url = Serveriii
         Try
-
-
-
             Dim Respuesta As XmlNode
             Dim sqldato As String = "update [Ecom].[dbo].[@IL_CONFIG_E] set rutaxml='" & inputxml.Value & "', rutapdf='" & inputpdf.Value & "', U_arttype='" & DropDownList1.SelectedValue & "',U_artcan='" & DropDownList2.SelectedValue & "',tipodoc='" & DropDownList3.SelectedValue & "'  "
             sqldato = sqldato & " ,ssl='" & DropDownList4.SelectedValue & "' "
@@ -173,7 +145,7 @@ Partial Class View_Config_Configuracion
             Session("colorMenu") = Color2.Value
             Session("colorContenido") = Color3.Value
 
-            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Configuracion Guardada');document.location.href='frmConfig';", True)
+            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Configuracion Guardada');document.location.href='Configuracion';", True)
 
         Catch ex As Exception
         End Try
@@ -281,11 +253,11 @@ Partial Class View_Config_Configuracion
             oField = Nothing
             ' Return "Envio Correcto"
             Session("errormail") = Nothing
-            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrta", "alert('Envio Correcto');document.location.href='frmConfig'; ", True)
+            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrta", "alert('Envio Correcto');document.location.href='Configuracion'; ", True)
         Catch ex As Exception
             'ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & ex.Message & "');document.location.href='frmConfig';", True)
 
-            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrta", "alert('" & Replace(ex.Message, "'", "") & "');document.location.href='frmConfig'; ", True)
+            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrta", "alert('" & Replace(ex.Message, "'", "") & "');document.location.href='Configuracion'; ", True)
 
             'Return ex.Message
         End Try
