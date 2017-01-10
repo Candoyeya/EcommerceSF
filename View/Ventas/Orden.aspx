@@ -21,11 +21,28 @@
                                 Orden de Compra
                             </h3>                            
                         </div>                        
-                        <div class="body">   
+                        <div class="body">
+                            <!--Fila 1--> 
+                            <div class="row">
+                                <!--tamaño de div-->
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                      <input id="Item" runat="server" type="text" class="form-control" placeholder="Buscar Articulo..."/>
+                                      <span class="input-group-btn" runat="server">
+                                        <button id="BtnBuscar" runat="server" class="btn btn-default" type="button">
+                                            <i class="material-icons">search</i>
+                                        </button>
+                                      </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>  
+                            <!--Fila 2-->   
                             <div class="row  ">
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12 " runat="server" id="Div1">
                                     <asp:GridView ID="mygrid" runat="server" Width="100%" Style="width: 100%;"
                                         ShowFooter="false" AutoGenerateColumns="False"
+                                        ShowHeaderWhenEmpty="true"
+                                        EmptyDataText = "No hay Coincidencias"
                                         CellPadding="4" 
                                         GridLines="None"
                                         Class="gvv display">
@@ -43,6 +60,7 @@
                                                     <asp:TextBox ID="txtcantidad" runat="server" size="4" Width="60px" Text="1" CssClass="form-control"></asp:TextBox>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                            <%--campos info...--%>
                                             <asp:BoundField DataField="codigo" HeaderText="Codigo" />
                                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
                                             <asp:BoundField DataField="cosa" HeaderText="Precio" />  
@@ -134,7 +152,7 @@
                     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
                     "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
+                    "sSearch": "Buscar en resultados:",
                     "sUrl": "",
                     "sInfoThousands": ",",
                     "sLoadingRecords": "Cargando...",

@@ -18,8 +18,8 @@
     <!-- Bootstrap Core Css        
     <link href="~/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>   -->  
     <link rel="stylesheet" href="~/css/alt/bootstrap.min.css"/>
-    <!-- Waves Effect Css 
-    <link href="~/plugins/node-waves/waves.css" rel="stylesheet" />-->
+    <!-- Waves Effect Css -->
+    <link href="~/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css 
     <link href="~/plugins/animate-css/animate.css" rel="stylesheet" />-->
@@ -159,7 +159,7 @@
                     </li>
                     <!-- Link orden de compra -->
                     <li>
-                        <a href="<%= ResolveClientUrl("~/View/Ventas/Orden.aspx") %>">
+                        <a href="<%= ResolveClientUrl("~/View/Ventas/Catalogo.aspx") %>">
                             <i class="material-icons">shopping_cart</i>
                             <span>Orden de Compra</span>
                         </a>

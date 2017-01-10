@@ -320,6 +320,7 @@ Partial Class View_Ventas_OrdenCarrito
     End Sub
 
     Protected Sub agregaorden()
+        '-Update 2017/01/04
         Try
             ws = New DIS.DIServer
             ws.Url = Serveriii
@@ -333,7 +334,7 @@ Partial Class View_Ventas_OrdenCarrito
             Dim answer As Date = Today.AddDays(15)
             Dim fechastring = answer.ToString("yyyyMMdd")
             Dim subtotal As Double = 0
-            Dim orden As String = ""
+            Dim orden As String = "", Objeto As String = Nothing
             If IsNothing(Session("carrito")) Then
 
             Else
@@ -346,30 +347,22 @@ Partial Class View_Ventas_OrdenCarrito
                 carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
 
                 If Session("tipodocventas") = "pedido" Then
-
-                    orden = "" &
-                        "<BOM xmlns='http://www.sap.com/SBO/DIS'><BO><AdmInfo><Object>oOrders</Object>" &
+                    Objeto = "oOrders"
+                Else
+                    Objeto = "oQuotations"
+                End If
+                '----Creacion de BOMdata 
+                '----Crear metodo para establecer almacen default antes de realizar la venta(pedido) en bomdata
+                orden = "" &
+                        "<BOM xmlns='http://www.sap.com/SBO/DIS'><BO><AdmInfo><Object>" & Objeto & "</Object>" &
                         "</AdmInfo><Documents><row> <DocDueDate>" & fechastring & "</DocDueDate><Comments>" & TextArea1.InnerText & "</Comments> <CardCode>" & Session("RazCode") & "</CardCode></row>" &
                         "</Documents><Document_Lines>"
-                    For i As Integer = 0 To carrito.Count - 1
-                        orden = orden + "" &
+                For i As Integer = 0 To carrito.Count - 1
+                    orden = orden + "" &
                              "<row><LineNum>" & (i + 1) & "</LineNum><ItemCode>" & carrito(i) & "</ItemCode><Quantity>" & carritocan(i) & "</Quantity><TaxCode>" & carritoiva(i) & "</TaxCode><DiscountPercent>" & carritoDescuentoEDIT(i) & "</DiscountPercent><FreeText>" & carritoNotaArt(i) & "</FreeText></row>"
-                    Next
-                    orden = orden + "</Document_Lines></BO></BOM>"
+                Next
+                orden = orden + "</Document_Lines></BO></BOM>"
 
-                Else
-                    orden = "" &
-                      "<BOM xmlns='http://www.sap.com/SBO/DIS'><BO><AdmInfo><Object>oQuotations</Object>" &
-                      "</AdmInfo><Documents><row> <DocDueDate>" & fechastring & "</DocDueDate><Comments>" & TextArea1.InnerText & "</Comments> <CardCode>" & Session("RazCode") & "</CardCode></row>" &
-                      "</Documents><Document_Lines>"
-                    For i As Integer = 0 To carrito.Count - 1
-                        orden = orden + "" &
-                            "<row><LineNum>" & (i + 1) & "</LineNum><ItemCode>" & carrito(i) & "</ItemCode><Quantity>" & carritocan(i) & "</Quantity><TaxCode>" & carritoiva(i) & "</TaxCode><DiscountPercent>" & carritoDescuentoEDIT(i) & "</DiscountPercent><FreeText>" & carritoNotaArt(i) & "</FreeText></row>"
-
-                    Next
-                    orden = orden + "</Document_Lines></BO></BOM>"
-
-                End If
 
                 Dim Respuesta As System.Xml.XmlNode = ws.AddObject(Session("Token"), orden, "AddOrder")
 
@@ -389,7 +382,6 @@ Partial Class View_Ventas_OrdenCarrito
                     Session("carritoNotaArt") = Nothing
 
                     'EnvioMailPedido("leopoldo.delatorre@interlatin.com.mx", "leopoldo.delatorre@interlatin.com.mx")
-
 
                     ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento " & Session("tipodocventas") & " creado. ');document.location.href='Orden';", True)
                 Else
