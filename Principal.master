@@ -8,7 +8,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <title>.: Bienvenido E-commerce SF :.</title>
+    <title>.: Bienvenido E-Commerce SF :.</title>
 
 <!--Inicia CCS-------------------------------------------------------------------------->
     <!-- Google Fonts -->
@@ -266,7 +266,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 <a href="javascript:void(0);">E-commerce Surtidora Ferretera</a>.
+                    &copy; 2016 <a href="javascript:void(0);">E-Commerce Surtidora Ferretera</a>.
                 </div>
                 <div class="version">
                     <b>Version: </b> 16.12.28

@@ -6,6 +6,8 @@ Imports System.Data
 Imports ConectaClass
 Partial Class View_Ventas_Catalogo
     Inherits System.Web.UI.Page
+    '//**Creacion 02/01/2017**//
+    '//Update 03/01/2017
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             ' GeneradorHtml()
@@ -15,6 +17,8 @@ Partial Class View_Ventas_Catalogo
     End Sub
 
     Public Sub GeneradorHtml()
+        '//**Creacion 02/01/2017**//
+        '//Update 04/01/2017
         Try
             Dim html As String = Nothing, sql As String = Nothing
             Dim contador As Integer = 0
@@ -78,6 +82,8 @@ Partial Class View_Ventas_Catalogo
     End Sub
 
     Public Sub GenerarCatalogo()
+        '//**Creacion 07/01/2017**//
+        '//Update 08/01/2017
         Try
             Dim html As String = Nothing, sql As String = Nothing
             Dim contador As Integer = 0

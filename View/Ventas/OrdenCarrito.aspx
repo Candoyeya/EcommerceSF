@@ -17,66 +17,167 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
+                            <h3>
                                 Carrito de Compra
-                            </h2>
+                            </h3>
                             
                         </div>
                         
-                        <div class="body">    
-                            <button type="button" runat="server" id="Limpiarcarro" class="btn btn-default btn-md" style="float: right;">
-                                Limpiar carrito <i class="fa fa-trash "></i>
-                            </button>
-
-
-                            <br />
-                            <br />
-
-                            <div id="tablaprueba" runat="server" style="width: auto; overflow-x: auto;">
-
-                                <div style="min-width: 600px;">
-
-                                    <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server" Style="width: 100%; min-width: 600px">
-                                        <asp:TableHeaderRow>
-                                            <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
-                                            <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
-                                            <asp:TableHeaderCell>Precio unitario</asp:TableHeaderCell>
-                                            <asp:TableHeaderCell>Descuento</asp:TableHeaderCell>
-                                            <asp:TableHeaderCell>Precio tras descuento</asp:TableHeaderCell>
-
-
-                                            <%--<asp:TableHeaderCell>Descuento</asp:TableHeaderCell>--%>
-                                            <asp:TableHeaderCell>Precio total</asp:TableHeaderCell>
-                                            <asp:TableHeaderCell>Nota de Articulo</asp:TableHeaderCell>
-                                        </asp:TableHeaderRow>
-                                    </asp:Table>
-
+                        <div class="body"> 
+                            <!--Fila 1--> 
+                            <div class="row">
+                                <!--Columna 1--> 
+                                <div class="col-md-6">
+                                    <fieldset><legend class="text-primary">Datos de Envio</legend>
+                                        <!--Fila text 1--> 
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <div class="input-group">
+                                                    <label>Domicilio</label>
+                                                    <input type="text" class="form-control" id="Domicilio" placeholder="" runat="server"/>                                                    
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <label>Comunidad</label>
+                                                    <input type="text" class="form-control" id="Comunidad" placeholder="" runat="server"/>
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <label>Referencia</label>
+                                                    <input type="text" class="form-control" id="Referencia" placeholder="" runat="server"/>  
+                                                 </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="input-group">
+                                                    <label>Telefono</label>
+                                                    <input type="text" class="form-control" id="Telefono" placeholder="" runat="server"/>
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <label>Contacto</label>
+                                                    <input type="text" class="form-control" id="Contacto" placeholder="" runat="server"/>
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <label>Hora de Envio</label>
+                                                    <input type="text" class="form-control" id="Hora_E" placeholder="" runat="server"/>
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <br /> 
+                                                    <label><asp:CheckBox ID="CheckMail" runat="server" Checked="false"/>  Envio por Mail</label>
+                                                 </div>
+                                            </div>                                            
+                                        </div>                                        
+                                    </fieldset>                                                                       
                                 </div>
 
+                                <!--Columna 2-->
+                                <div class="col-md-4">
+                                    <fieldset><legend class="text-primary">Forma de Pago</legend><div class="row">
+                                        <div class="col-md-9">
+                                             <div class="input-group">
+                                                <label>Forma de Pago</label>
+                                                <select class="form-control" id="U_FPago" runat="server">
+                                                    <option value="">Selecciona una opcion</option>
+                                                    <option value="1">EFECTIVO</option>
+                                                    <option value="2">CHEQUE</option>
+                                                    <option value="3">TRANSFERENCIA</option>
+                                                    <option value="4">CREDITO</option>
+                                                </select>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <label>Forma de Pago Fiscal</label>
+                                                <select class="form-control" id="U_PagoFiscal" runat="server">
+                                                    <option value="">Selecciona una opcion</option>
+                                                    <option value="01">Efectivo.</option>
+                                                    <option value="02">Cheque Nominativo.</option>
+                                                    <option value="03">Transferencia Electronica de f</option>
+                                                    <option value="04">Tarjeta de Credito</option>
+                                                    <option value="05">Monedero Electronico</option>
+                                                    <option value="06">Dinero Electronico</option>
+                                                    <option value="08">Vales de Despensa</option>
+                                                    <option value="28">Tarjeta de Debito</option>
+                                                    <option value="29">Tarjeta de Servicio.</option>
+                                                    <option value="98">NA</option>
+                                                    <option value="99">Otros.</option>
+                                                </select> 
+                                                 <br />
+                                                <br />
+                                                <br />
+                                                <label>Requiere Factura</label>
+                                                <select class="form-control" id="U_Fac" runat="server">
+                                                    <option value="">Selecciona una opcion</option>
+                                                    <option value="01">SI</option>
+                                                    <option value="02">NO</option>                                                    
+                                                </select> 
+                                             </div>
+                                        </div>                                                                               
+                                    </div></fieldset> 
+                                    <fieldset><legend class="text-primary">Notas</legend><div class="row">
+                                        <div class="col-md-9">
+                                            <textarea id="TextArea1" cols="1" rows="2" runat="server" class="form-control"></textarea> 
+                                        </div>                                                                               
+                                    </div></fieldset>                                      
+                                </div>
                             </div>
-                            <asp:CheckBox ID="CheckMail" runat="server" Checked  />  Envio por Mail
-
-
-                            <div style="width: 180px; margin-left: auto">
-                                Notas:<textarea id="TextArea1" cols="20" rows="2" runat="server" class="form-control"></textarea>
-                            </div>
-                            <br />
-
-
-                            <button type="button" runat="server" id="regresar" class="btn btn-default btn-md" style="">
-                                <i class="fa fa-arrow-left"></i>Continuar agregando
-
-                            </button>
-
-
-                            <asp:Button type="button" runat="server" ID="confirmar" Text="confirmar" OnClick="OnConfirm" class="btn btn-default btn-md" OnClientClick="Confirm()" Style="float: right" />
-
-
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-
+                            <!--Fila 2--> 
+                            <div class="row">
+                                <div id="tablaprueba" runat="server" style="width: auto; overflow-x: auto;">
+                                    <div style="min-width: 600px;">
+                                        <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server" Style="width: 100%; min-width: 600px">
+                                            <asp:TableHeaderRow>
+                                                <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
+                                                <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
+                                                <asp:TableHeaderCell>Precio unitario</asp:TableHeaderCell>
+                                                <asp:TableHeaderCell>Descuento</asp:TableHeaderCell>
+                                                <asp:TableHeaderCell>Precio tras descuento</asp:TableHeaderCell>
+                                                <%--<asp:TableHeaderCell>Descuento</asp:TableHeaderCell>--%>
+                                                <asp:TableHeaderCell>Precio total</asp:TableHeaderCell>
+                                                 <%--<asp:TableHeaderCell>Nota de Articulo</asp:TableHeaderCell>--%>
+                                            </asp:TableHeaderRow>
+                                        </asp:Table>
+                                    </div>
+                                </div>
+                                
+                            </div>   
+                            
+                            <!--Fila 3--> 
+                            <div class="row">
+                                <!--Columna 1-->
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <br />                                            
+                                            <div class="button-demo">
+                                                <button type="button" runat="server" id="regresar" class="btn btn-primary waves-effect">
+                                                    <i class="material-icons">add_shopping_cart</i>  Continuar agregando
+                                                </button>
+                                            </div>   
+                                            <br /> 
+                                            <div class="button-demo">
+                                                <button type="button" runat="server" id="Limpiarcarro" class="btn btn-danger waves-effect">
+                                                    Limpiar carrito <i class="material-icons">remove_shopping_cart</i>
+                                                </button>
+                                            </div>                                           
+                                            
+                                        </div>                                        
+                                    </div>                                    
+                                </div>
+                                <!--Columna 2-->
+                                <div class="col-sm-1">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <br />
+                                            <div class="button-demo">
+                                                <asp:LinkButton type="button" runat="server" ID="confirmar" OnClick="OnConfirm" class="btn btn-success waves-effect" OnClientClick="Confirm()"><i class="material-icons">shopping_cart</i>Confirmar</asp:LinkButton>
+                                                                                                
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div> 
+                            </div> 
 
                             <input type="text" runat="server" id="actuacan" clientidmode="Static" style="display: none" />
                             <input type="text" runat="server" id="actuaid" clientidmode="Static" style="display: none" />

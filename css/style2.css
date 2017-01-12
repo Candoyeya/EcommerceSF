@@ -5017,7 +5017,7 @@ section.content {
   .form-control-label label {
     margin-top: 8px; }
 
-.form-horizontal .form-group {
+/*.form-horizontal .form-group {
   margin-bottom: 0; }
 
 .form-group {
@@ -5109,7 +5109,7 @@ section.content {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-  background-color: transparent; }
+  background-color: transparent; }*/
 
 /* Color Picker ================================ */
 .colorpicker {

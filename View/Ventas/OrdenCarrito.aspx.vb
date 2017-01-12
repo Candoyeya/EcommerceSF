@@ -3,6 +3,7 @@
 Imports System.Xml
 Imports System.Globalization
 Imports System.IO
+Imports System.Data
 Partial Class View_Ventas_OrdenCarrito
     Inherits System.Web.UI.Page
     Public ws As DIS.DIServer
@@ -133,10 +134,11 @@ Partial Class View_Ventas_OrdenCarrito
                         '-------------------------------------
                         'NOTA DE ARTICULO
                         '------------------------- 
-                        tCell = New TableCell()
-                        tCell.Text = "<input id='row" & i & "' type='text' size='' value='" & carritoNotaArt(i) & "' onchange=' NotaArt(this.value,id)'>"
-                        tCell.HorizontalAlign = HorizontalAlign.Center
-                        tRow.Cells.Add(tCell)
+                        'tCell = New TableCell()
+                        'tCell.Text = "<input id='row" & i & "' type='text' size='' value='" & carritoNotaArt(i) & "' onchange=' NotaArt(this.value,id)'>"
+                        'tCell.HorizontalAlign = HorizontalAlign.Center
+                        'tRow.Cells.Add(tCell)
+
                         Dim monedaartic As String = ReadXML(restring, "Currency")
                         subtotal = subtotal + totalxarticulo
                         sqldato = " SELECT top 20 t2.ItemCode, t2.U_IL_iva, t3.rate   FROM   OITM t2  inner join  OSTC t3 on t2.U_IL_iva=t3.Code   where t2.ItemCode ='" & carrito(i) & "' "
@@ -269,14 +271,14 @@ Partial Class View_Ventas_OrdenCarrito
                         carritoprecio = CType(Session("precio"), ArrayList)
                         carritoitem = CType(Session("nom"), ArrayList)
                         carritoDescuento = CType(Session("carritoDescuento"), ArrayList)
-                        carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
+                        'carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
 
                         carrito.RemoveAt(actuaid.Value)
                         carritocan.RemoveAt(actuaid.Value)
                         carritoprecio.RemoveAt(actuaid.Value)
                         carritoitem.RemoveAt(actuaid.Value)
                         carritoDescuento.RemoveAt(actuaid.Value)
-                        carritoNotaArt.RemoveAt(actuaid.Value)
+                        'carritoNotaArt.RemoveAt(actuaid.Value)
 
                         Session("carritonumitems") = CInt(Session("carritonumitems")) - 1
                         Session("carrito") = carrito
@@ -284,12 +286,12 @@ Partial Class View_Ventas_OrdenCarrito
                         Session("precio") = carritoprecio
                         Session("nom") = carritoitem
                         Session("carritoDescuento") = carritoDescuento
-                        Session("carritoNotaArt") = carritoNotaArt
+                        'Session("carritoNotaArt") = carritoNotaArt
 
                         If carrito.Count = 0 Then
                             Limpiarcarro_ServerClick("", Nothing)
                         End If
-                        Response.Redirect("frmOrdenCarrito.aspx")
+                        Response.Redirect("OrdenCarrito.aspx")
                     End If
                 End If
             Else
@@ -309,7 +311,7 @@ Partial Class View_Ventas_OrdenCarrito
         Session("carritonumitems") = Nothing
         Session("ivas") = Nothing
         Session("carritoDescuento") = Nothing
-        Session("carritoNotaArt") = Nothing
+        'Session("carritoNotaArt") = Nothing
         Session("carritoDescuentoEDIT") = Nothing
 
         Response.Redirect("~/View/Ventas/Orden.aspx")
@@ -320,7 +322,7 @@ Partial Class View_Ventas_OrdenCarrito
     End Sub
 
     Protected Sub agregaorden()
-        '-Update 2017/01/04
+        '//Update 11/01/2017
         Try
             ws = New DIS.DIServer
             ws.Url = Serveriii
@@ -344,24 +346,40 @@ Partial Class View_Ventas_OrdenCarrito
                 carritoitem = CType(Session("nom"), ArrayList)
                 carritoiva = CType(Session("ivas"), ArrayList)
                 carritoDescuentoEDIT = CType(Session("carritoDescuentoEDIT"), ArrayList)
-                carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
+                'carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
 
                 If Session("tipodocventas") = "pedido" Then
                     Objeto = "oOrders"
                 Else
                     Objeto = "oQuotations"
                 End If
+                '---Borrar es solo para ver caso de ejemplo
+                Objeto = "oQuotations"
                 '----Creacion de BOMdata 
                 '----Crear metodo para establecer almacen default antes de realizar la venta(pedido) en bomdata
                 orden = "" &
                         "<BOM xmlns='http://www.sap.com/SBO/DIS'><BO><AdmInfo><Object>" & Objeto & "</Object>" &
-                        "</AdmInfo><Documents><row> <DocDueDate>" & fechastring & "</DocDueDate><Comments>" & TextArea1.InnerText & "</Comments> <CardCode>" & Session("RazCode") & "</CardCode></row>" &
-                        "</Documents><Document_Lines>"
+                        "</AdmInfo><Documents><row> <DocDueDate>" & fechastring & "</DocDueDate><Comments>" & TextArea1.InnerText & "</Comments>" &
+                        "<CardCode>" & Session("RazCode") & "</CardCode><SalesPersonCode>89</SalesPersonCode><U_embarque>Entrega a Domicilio</U_embarque>" &
+                        "<U_FPago>" & U_FPago.Value & "</U_FPago><U_PagoFiscal>" & U_PagoFiscal.Value & "</U_PagoFiscal><U_Fac>" & U_Fac.Value & "</U_Fac>" &
+                        "</row></Documents><Document_Lines>"
                 For i As Integer = 0 To carrito.Count - 1
                     orden = orden + "" &
-                             "<row><LineNum>" & (i + 1) & "</LineNum><ItemCode>" & carrito(i) & "</ItemCode><Quantity>" & carritocan(i) & "</Quantity><TaxCode>" & carritoiva(i) & "</TaxCode><DiscountPercent>" & carritoDescuentoEDIT(i) & "</DiscountPercent><FreeText>" & carritoNotaArt(i) & "</FreeText></row>"
+                             "<row><LineNum>" & (i + 1) & "</LineNum><ItemCode>" & carrito(i) & "</ItemCode><Quantity>" & carritocan(i) & "</Quantity><WarehouseCode>" & DfltWH(carrito(i)) & "</WarehouseCode><TaxCode>" & carritoiva(i) & "</TaxCode><DiscountPercent>" & carritoDescuentoEDIT(i) & "</DiscountPercent><SalesPersonCode>89</SalesPersonCode></row>"
                 Next
-                orden = orden + "</Document_Lines></BO></BOM>"
+                '<FreeText>" & carritoNotaArt(i) & "</FreeText>
+                orden = orden + "</Document_Lines>" &
+                                        "<AddressExtension>" &
+                                            "<row>" &
+                                                "<BillToStreet>" & Domicilio.Value & "</BillToStreet>" &
+                                                "<BillToStreetNo>" & Referencia.Value & "</BillToStreetNo>" &
+                                                "<BillToBlock>" & Comunidad.Value & "</BillToBlock>" &
+                                                "<BillToCity>" & Telefono.Value & "</BillToCity>" &
+                                                "<BillToZipCode>" & Contacto.Value & "</BillToZipCode>" &
+                                                "<BillToCounty>" & Hora_E.Value & "</BillToCounty>" &
+                                            "</row>" &
+                                        "</AddressExtension>" &
+                                "</BO></BOM>"
 
 
                 Dim Respuesta As System.Xml.XmlNode = ws.AddObject(Session("Token"), orden, "AddOrder")
@@ -379,11 +397,11 @@ Partial Class View_Ventas_OrdenCarrito
                     Session("carritonumitems") = Nothing
                     Session("ivas") = Nothing
                     Session("carritoDescuentoEDIT") = Nothing
-                    Session("carritoNotaArt") = Nothing
+                    'Session("carritoNotaArt") = Nothing
 
                     'EnvioMailPedido("leopoldo.delatorre@interlatin.com.mx", "leopoldo.delatorre@interlatin.com.mx")
 
-                    ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento " & Session("tipodocventas") & " creado. ');document.location.href='Orden';", True)
+                    ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento " & Session("tipodocventas") & " creado. ');document.location.href='Catalogo';", True)
                 Else
                     errorr = Replace(errorr, "'", "")
                     Me.Page.ClientScript.RegisterStartupScript(Me.GetType(), "aleasrt", "alert('" & errorr & "');document.location.href='OrdenCarrito';", True)
@@ -396,6 +414,36 @@ Partial Class View_Ventas_OrdenCarrito
         End Try
     End Sub
 
+    Function DfltWH(ByVal ItemCode As String) As String
+        '//**Creacion 11/01/2017**//
+        '//Update 11/01/2017
+        Try
+            Dim sql As String = "Select TOP 1 T0.DfltWH " &
+                                "From OITM T0 Inner Join OWHS T1 On (T1.WhsCode=T0.DfltWH) " &
+                                "Where T0.ItemCode='" & ItemCode & "'"
+            Dim DefaulWhs As String = Nothing
+            cnn.Open()
+            cmd = New SqlClient.SqlCommand(sql, cnn)
+            dr = cmd.ExecuteReader()
+            '--------->Recorrer todos los registros de la consulta
+            If dr.HasRows Then
+                While dr.Read
+                    DefaulWhs = dr.Item("DfltWH")
+                End While
+            End If
+
+            cnn.Close()
+            dr.Close()
+            Return DefaulWhs
+
+        Catch ex As Exception
+            cnn.Close()
+            dr.Close()
+            Dim fail As String = ex.Message
+            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & fail & "');  ", True)
+        End Try
+    End Function
+
     Protected Sub OnConfirm(sender As Object, e As EventArgs)
         Dim confirmValue As String = Request.Form("confirm_value")
         If confirmValue = "Ok" Then
@@ -405,6 +453,7 @@ Partial Class View_Ventas_OrdenCarrito
             ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", " document.location.href='OrdenCarrito';", True)
         End If
     End Sub
+
 
     Protected Sub Mailer()
         '   <table style="width:100%"  border="1">

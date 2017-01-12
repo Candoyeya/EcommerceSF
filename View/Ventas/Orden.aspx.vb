@@ -86,7 +86,7 @@ Partial Class View_Ventas_Orden
 
     Public Sub Catalogo()
         '//**Creacion 03/01/2017**//
-        '//Update 04/01/2017
+        '//Update 11/01/2017
         '---Funcion cargar catalogo de articulos
         Dim today As Date = DateTime.Now
         Dim fechastring = today.ToString("yyyyMMdd")
@@ -99,23 +99,24 @@ Partial Class View_Ventas_Orden
             Session("usdrate") = ReadXML(Respuesta.InnerXml, "rate")
             If Session("usdrate") > 0 Then
                 '--Consulta SQL articulos eh imagen
-                Dim sqldato As String = "select T0.ItemCode,T0.ItemName,ISNULL(CONVERT(VARCHAR(MAX), T4.ImagenBase ),'') as 'imag' " &
-                                        "from OITM T0 " &
-                                        "inner join OITW T1 on T0.ItemCode = T1.ItemCode " &
-                                        "inner join OWHS t3 on T1.WhsCode = T3.WhsCode " &
-                                        "left join EcommerceSF.dbo.TAAE T4 On T4.ItemCode=T0.ItemCode "
+                Dim sqldato As String = "Select Y0.ItemCode,Y0.ItemName,Y0.imag From " &
+                                        "(SELECT SUM(T0.OnHand)+SUM(T0.IsCommited) as 'Existencia',t1.ItemCode,t1.ItemName,ISNULL(CONVERT(VARCHAR(MAX), T2.ImagenBase ),'') as 'imag' " &
+                                        "FROM OITW T0 " &
+                                        "INNER JOIN OITM T1 ON T0.ItemCode=T1.ItemCode " &
+                                        "left join EcommerceSF.dbo.TAAE T2 On (T2.ItemCode=T0.ItemCode) "
                 If Articulo <> "" Then
-                    sqldato = sqldato + "where t0.validFor='Y' and T0.U_IL_iva is not null and T0.ItemName like '%" & Articulo & "%' "
+                    sqldato = sqldato + "where T0.WhsCode between '01' and '04' and t1.validFor='Y' and T1.U_IL_iva is not null AND T1.ItemName like '%" & Articulo & "%' "
                 Else
                     If Grupo <> "" Then
-                        sqldato = sqldato + "where t0.validFor='Y' and T0.U_IL_iva is not null and T0.ItmsGrpCod='" & Grupo & "' "
+                        sqldato = sqldato + "where T0.WhsCode between '01' and '04' and t1.validFor='Y' and T1.U_IL_iva is not null AND T1.ItmsGrpCod='" & Grupo & "' "
                     Else
-                        sqldato = sqldato + "where t0.validFor='Y' and T0.U_IL_iva is not null "
+                        sqldato = sqldato + "where T0.WhsCode between '01' and '04' and t1.validFor='Y' and T1.U_IL_iva is not null "
                     End If
                 End If
 
 
-                sqldato = sqldato + "group by T0.ItemCode,T0.ItemName,CONVERT(VARCHAR(MAX), T4.ImagenBase)"
+                sqldato = sqldato + "GROUP BY T1.ItemCode,T1.ItemName,CONVERT(VARCHAR(MAX), T2.ImagenBase))AS Y0 "
+                sqldato = sqldato + "where y0.Existencia>0 ORDER BY Existencia"
                 '---Revisar almacen por default para que no tome material que no sea del almacen fijado
                 '---Tabla temporal
                 Dim DataTable As New DataTable()

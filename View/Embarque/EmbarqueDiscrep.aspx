@@ -47,7 +47,7 @@
                                 </asp:Table>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-xs-12 col-md-6    ">                                    
+                                <div class="col-xs-12 col-md-6">                                    
                                     <div class="demo-dropup">
                                         <!--Lista de codigo de articulos-->
                                         <h2 class="card-inside-title">Código:</h2>  
