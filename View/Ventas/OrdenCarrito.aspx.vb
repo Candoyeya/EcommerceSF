@@ -1,5 +1,5 @@
 ﻿Imports Modulo
-
+Imports ConectaMod
 Imports System.Xml
 Imports System.Globalization
 Imports System.IO
@@ -11,216 +11,227 @@ Partial Class View_Ventas_OrdenCarrito
 
     Dim TablaPolo As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        '//Update 19/01/2017
         Dim rueba As String = "Prueba"
-
         If Not Page.IsPostBack Then
-            TablaPolo = "<table     style=' text-align: center;width: 100%; min-width: 600px;border: solid 1px #575656; background: #ffffff'><tr><th>Articulo</th><th>Cantidad</th><th>Precio unitario</th><th>Descuento</th><th>Precio tras descuento</th><th>Precio total</th></tr> "
-
-            If IsNothing(Session("carritonumitems")) Then
-                Response.Redirect("~/View/Ventas/Orden.aspx")
-            End If
-            'Busqueda de facturas venciadas Balance
-            Dim tRow As New TableRow()
-            Dim tCell As New TableCell()
-            ws = New DIS.DIServer
-            ws.Url = Serveriii
-            Dim carrito As ArrayList = New ArrayList
-            Dim carritocan As ArrayList = New ArrayList
-            Dim carritoprecio As ArrayList = New ArrayList
-            Dim carritoitem As ArrayList = New ArrayList
-            Dim carritoiva As ArrayList = New ArrayList
-            Dim carritoDescuento As ArrayList = New ArrayList
-            Dim carritoDescuentoEDIT As ArrayList = New ArrayList
-            Dim carritoNotaArt As ArrayList = New ArrayList
-            Dim precioYaConDescuento As String = ""
-            Dim mystring As String
-            Dim Respuesta As XmlNode
-            Dim restring As String
-            Dim totalxarticulo As Double = 0
-            Dim totaliva As Double = 0
-            Dim totalivafinal As Double = 0
-            Dim fechastring = Today.ToString("yyyyMMdd")
-            Dim subtotal As Double = 0
-            Dim sqldato As String
-            Dim banderaCar As Boolean = False
-            Dim RowPolo As String = ""
-            Try
-                Session("Sumaivas") = 0
-                If IsNothing(Session("carrito")) Then
-                Else
-                    carrito = CType(Session("carrito"), ArrayList)
-                    carritocan = CType(Session("carritocan"), ArrayList)
-                    carritoprecio = CType(Session("precio"), ArrayList)
-                    carritoitem = CType(Session("nom"), ArrayList)
-                    carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
-                    Try
-                        If Session("carritoDescuentoEDIT") = Nothing Then
-                            banderaCar = True
-                        Else
-                            carritoDescuentoEDIT = CType(Session("carritoDescuentoEDIT"), ArrayList)
-                        End If
-
-                    Catch ex As Exception
-                        carritoDescuentoEDIT = CType(Session("carritoDescuentoEDIT"), ArrayList)
-                    End Try
-
-                    For i As Integer = 0 To carrito.Count - 1
-                        RowPolo = "<tr>"
-                        '-------------------------------------
-                        'NOMBRE ARITCULO
-                        '-------------------------------------
-                        tRow = New TableRow()
-                        tCell = New TableCell()
-                        tCell.Text = carritoitem(i)
-                        tRow.Cells.Add(tCell)
-                        RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & carritoitem(i) & "</td>"
-                        '-------------------------------------
-                        'CANTIDAD
-                        '-------------------------------------
-                        tCell = New TableCell()
-                        tCell.Text = "<input id='row" & i & "' type='text' size='4' value='" & carritocan(i) & "' onchange='myFunction(this.value,id)'>"
-                        tCell.HorizontalAlign = HorizontalAlign.Center
-                        tRow.Cells.Add(tCell)
-                        RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & carritocan(i) & "</td>"
-                        '-------------------------------------
-                        'PRECIO ORIGINAL
-                        '-------------------------------------
-                        tCell = New TableCell()
-                        mystring = "<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'><env:Header><SessionID>" & Session("Token") & "</SessionID></env:Header><env:Body><dis:GetItemPrice xmlns:dis='http://www.sap.com/SBO/DIS'><CardCode>" & Session("RazCode") & "</CardCode><ItemCode>" & carrito(i) & "</ItemCode><Quantity>" & carritocan(i) & "</Quantity><Date>" & fechastring & "</Date></dis:GetItemPrice></env:Body></env:Envelope>"
-                        restring = ws.Interact(Session("Token"), mystring)
-                        tCell.Text = ReadXML(restring, "Currency") + " " + String.Format("{0:N}", Convert.ToDouble(carritoprecio(i)))
-                        tRow.Cells.Add(tCell)
-                        RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td>"
-                        '-------------------------------------
-                        '% DESCUENTO
-                        '-------------------------------------
-                        tCell = New TableCell()
-                        Dim preciosporarticulo As ArrayList
-                        If banderaCar = True Or (carritoDescuentoEDIT.Count - 1) < i Then
-                            preciosporarticulo = getItemPriceDiscountByPolo(Session("RazCode"), carrito(i), carritocan(i), Session("Token"))
-                            carritoDescuentoEDIT.Add(preciosporarticulo(1))
-                            tCell.Text = "%<input id='row" & i & "' type='text' size='4' value='" & Convert.ToDouble(carritoDescuentoEDIT(i)) & "' onchange='porcentaje(this.value,id)'>"
-                        Else
-                            tCell.Text = "%<input id='row" & i & "' type='text' size='4' value='" & Convert.ToDouble(carritoDescuentoEDIT(i)) & "' onchange='porcentaje(this.value,id)'>"
-                        End If
-                        tCell.HorizontalAlign = HorizontalAlign.Center
-                        tRow.Cells.Add(tCell)
-                        RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>%" & Convert.ToDouble(carritoDescuentoEDIT(i)) & "</td>"
-                        '-------------------------------------
-                        'PRECIO CON DESCUENTO
-                        '-------------------------------------
-                        tCell = New TableCell()
-                        If CInt(carritoDescuentoEDIT(i)) <= 0 Then
-                            tCell.Text = ReadXML(restring, "Currency") + " " + String.Format("{0:N}", Convert.ToDouble(carritoprecio(i)))
-                            precioYaConDescuento = Convert.ToDouble(carritoprecio(i))
-                        Else
-                            tCell.Text = ReadXML(restring, "Currency") + " " + String.Format("{0:N}", Convert.ToDouble((Convert.ToDouble(carritoprecio(i)) - (Convert.ToDouble(carritoDescuentoEDIT(i)) / 100) * Convert.ToDouble(carritoprecio(i)))))
-                            precioYaConDescuento = Convert.ToDouble((Convert.ToDouble(carritoprecio(i)) - (Convert.ToDouble(carritoDescuentoEDIT(i)) / 100) * Convert.ToDouble(carritoprecio(i))))
-                        End If
-                        tRow.Cells.Add(tCell)
-                        RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td>"
-                        '-------------------------------------
-                        'PRECIO * CANTIDAD = TOTAL DE LINEA
-                        '-------------------------------------
-                        tCell = New TableCell()
-                        totalxarticulo = precioYaConDescuento * carritocan(i)
-                        totalxarticulo = Convert.ToDouble(totalxarticulo)
-                        tCell.Text = Session("RazMON") + " " + Convert.ToDouble(totalxarticulo.ToString).ToString("N2", CultureInfo.CreateSpecificCulture("en-US"))
-
-                        RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
-                        TablaPolo += RowPolo
-                        tRow.Cells.Add(tCell)
-
-                        '-------------------------------------
-                        'NOTA DE ARTICULO
-                        '------------------------- 
-                        'tCell = New TableCell()
-                        'tCell.Text = "<input id='row" & i & "' type='text' size='' value='" & carritoNotaArt(i) & "' onchange=' NotaArt(this.value,id)'>"
-                        'tCell.HorizontalAlign = HorizontalAlign.Center
-                        'tRow.Cells.Add(tCell)
-
-                        Dim monedaartic As String = ReadXML(restring, "Currency")
-                        subtotal = subtotal + totalxarticulo
-                        sqldato = " SELECT top 20 t2.ItemCode, t2.U_IL_iva, t3.rate   FROM   OITM t2  inner join  OSTC t3 on t2.U_IL_iva=t3.Code   where t2.ItemCode ='" & carrito(i) & "' "
-                        Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
-                        totaliva = ReadXML(Respuesta.InnerXml, "rate")
-                        carritoiva.Insert(i, ReadXML(Respuesta.InnerXml, "U_IL_iva"))
-                        If totaliva > 0 Then
-                            Session("Sumaivas") = Session("Sumaivas") + (totalxarticulo * totaliva / 100)
-                            mystring = Session("Sumaivas")
-                        End If
-                        Table1.Rows.Add(tRow)
-                    Next
-                End If
-                Session("ivas") = carritoiva
-                tRow = New TableRow()
-                For x = 1 To 4
-                    tCell = New TableCell()
-                    tCell.Text = " "
-                    tRow.Cells.Add(tCell)
-                Next
-                tCell = New TableHeaderCell()
-                tCell.Text = "Subtotal"
-                tCell.HorizontalAlign = HorizontalAlign.Right
-                tRow.Cells.Add(tCell)
-                tCell = New TableCell()
-                'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 
-                '-------------------------------------
-                'SUBTOTAL
-                '-------------------------------------
-                tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", Convert.ToDouble(subtotal))
-                RowPolo = " <tr><td></td><td></td><td></td><td></td><th style='border: solid 1px #575656; background: #ffffff'>Subtotoal</th><td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
-                tRow.Cells.Add(tCell)
-                Table1.Rows.Add(tRow)
-                tRow = New TableRow()
-                For x = 1 To 4
-                    tCell = New TableCell()
-                    tCell.Text = " "
-                    tRow.Cells.Add(tCell)
-                Next
-                tCell = New TableHeaderCell()
-                tCell.Text = "Impuesto"
-                tRow.Cells.Add(tCell)
-                tCell = New TableCell()
-                '-------------------------------------
-                'IMPUESTO
-                '-------------------------------------
-                tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", Session("Sumaivas"))
-                RowPolo += " <tr><td></td><td></td><td></td><td></td><th style='border: solid 1px #575656; background: #ffffff'>Impuesto</th><td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
-                tRow.Cells.Add(tCell)
-                Table1.Rows.Add(tRow)
-                tRow = New TableRow()
-                For x = 1 To 4
-                    tCell = New TableCell()
-                    tCell.Text = " "
-                    tRow.Cells.Add(tCell)
-                Next
-                tCell = New TableHeaderCell()
-                tCell.Text = "Total"
-                tCell.HorizontalAlign = HorizontalAlign.Right
-                tRow.Cells.Add(tCell)
-                tCell = New TableCell()
-                '-------------------------------------
-                'TOTAL
-                '-------------------------------------
-                tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", Convert.ToDouble(subtotal) + Session("Sumaivas"))
-                '------------------Tabla Envio Mail-------------------
-                RowPolo += " <tr><td ></td><td></td><td></td><td></td><th style='border: solid 1px #575656; background: #ffffff'>Total</th><td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
-                TablaPolo += RowPolo
-                If Session("usutipo") = "venta" Then
-                    TablaPolo = "Socio de Negocio: " & Session("RazName") & "<br><br>" & TablaPolo
-                Else
-                    TablaPolo = "Socio de Negocio: " & Session("usuName") & "<br><br>" & TablaPolo
-                End If
-                Session("pedidoTableHTML") = TablaPolo
-                tRow.Cells.Add(tCell)
-                Table1.Rows.Add(tRow)
-                Session("carritoDescuentoEDIT") = carritoDescuentoEDIT
-            Catch ex As Exception
-                Dim ectraoficial As String = ex.Message
-            End Try
+            DatosCliente()
+            Municipio.Enabled = False
+            Colonia.Enabled = False
+            LlenarEstado()
+            CargarCarrito()
         End If
+    End Sub
 
+    Protected Sub CargarCarrito()
+        '//Update 19/01/2017
+        TablaPolo = "<table     style=' text-align: center;width: 100%; min-width: 600px;border: solid 1px #575656; background: #ffffff'><tr><th>Articulo</th><th>Cantidad</th><th>Precio unitario</th><th>Descuento</th><th>Precio tras descuento</th><th>Precio total</th></tr> "
+
+        If IsNothing(Session("carritonumitems")) Then
+            Response.Redirect("~/View/Ventas/Catalogo.aspx")
+        End If
+        'Busqueda de facturas venciadas Balance
+        Dim tRow As New TableRow()
+        Dim tCell As New TableCell()
+        ws = New DIS.DIServer
+        ws.Url = Serveriii
+        Dim carrito As ArrayList = New ArrayList
+        Dim carritocan As ArrayList = New ArrayList
+        Dim carritoprecio As ArrayList = New ArrayList
+        Dim carritoitem As ArrayList = New ArrayList
+        Dim carritoiva As ArrayList = New ArrayList
+        Dim carritoDescuento As ArrayList = New ArrayList
+        Dim carritoDescuentoEDIT As ArrayList = New ArrayList
+        Dim carritoNotaArt As ArrayList = New ArrayList
+        Dim precioYaConDescuento As String = ""
+        Dim mystring As String
+        Dim Respuesta As XmlNode
+        Dim restring As String
+        Dim totalxarticulo As Double = 0
+        Dim totaliva As Double = 0
+        Dim totalivafinal As Double = 0
+        Dim fechastring = Today.ToString("yyyyMMdd")
+        Dim subtotal As Double = 0
+        Dim sqldato As String
+        Dim banderaCar As Boolean = False
+        Dim RowPolo As String = ""
+        Try
+            Session("Sumaivas") = 0
+            If IsNothing(Session("carrito")) Then
+            Else
+                carrito = CType(Session("carrito"), ArrayList)
+                carritocan = CType(Session("carritocan"), ArrayList)
+                carritoprecio = CType(Session("precio"), ArrayList)
+                carritoitem = CType(Session("nom"), ArrayList)
+                carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
+                Try
+                    If Session("carritoDescuentoEDIT") = Nothing Then
+                        banderaCar = True
+                    Else
+                        carritoDescuentoEDIT = CType(Session("carritoDescuentoEDIT"), ArrayList)
+                    End If
+
+                Catch ex As Exception
+                    carritoDescuentoEDIT = CType(Session("carritoDescuentoEDIT"), ArrayList)
+                End Try
+
+                For i As Integer = 0 To carrito.Count - 1
+                    RowPolo = "<tr>"
+                    '-------------------------------------
+                    'NOMBRE ARITCULO
+                    '-------------------------------------
+                    tRow = New TableRow()
+                    tCell = New TableCell()
+                    tCell.Text = carritoitem(i)
+                    tRow.Cells.Add(tCell)
+                    RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & carritoitem(i) & "</td>"
+                    '-------------------------------------
+                    'CANTIDAD
+                    '-------------------------------------
+                    tCell = New TableCell()
+                    tCell.Text = "<input id='row" & i & "' type='text' size='4'  value='" & carritocan(i) & "' onchange='myFunction(this.value,id)'>"
+                    tCell.HorizontalAlign = HorizontalAlign.Center
+                    tRow.Cells.Add(tCell)
+                    RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & carritocan(i) & "</td>"
+                    '-------------------------------------
+                    'PRECIO ORIGINAL
+                    '-------------------------------------
+                    tCell = New TableCell()
+                    mystring = "<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'><env:Header><SessionID>" & Session("Token") & "</SessionID></env:Header><env:Body><dis:GetItemPrice xmlns:dis='http://www.sap.com/SBO/DIS'><CardCode>" & Session("RazCode") & "</CardCode><ItemCode>" & carrito(i) & "</ItemCode><Quantity>" & carritocan(i) & "</Quantity><Date>" & fechastring & "</Date></dis:GetItemPrice></env:Body></env:Envelope>"
+                    restring = ws.Interact(Session("Token"), mystring)
+                    tCell.Text = ReadXML(restring, "Currency") + " " + String.Format("{0:N}", Convert.ToDouble(carritoprecio(i)))
+                    tRow.Cells.Add(tCell)
+                    RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td>"
+                    '-------------------------------------
+                    '% DESCUENTO
+                    '-------------------------------------
+                    tCell = New TableCell()
+                    Dim preciosporarticulo As ArrayList
+                    If banderaCar = True Or (carritoDescuentoEDIT.Count - 1) < i Then
+                        preciosporarticulo = getItemPriceDiscountByPolo(Session("RazCode"), carrito(i), carritocan(i), Session("Token"))
+                        carritoDescuentoEDIT.Add(preciosporarticulo(1))
+                        tCell.Text = "<label>%</label><input id='row" & i & "' type='text' size='4' value='" & Convert.ToDouble(carritoDescuentoEDIT(i)) & "' onchange='porcentaje(this.value,id)'>"
+                    Else
+                        tCell.Text = "<label>%</label><input id='row" & i & "' type='text' size='4' value='" & Convert.ToDouble(carritoDescuentoEDIT(i)) & "' onchange='porcentaje(this.value,id)'>"
+                    End If
+                    tCell.HorizontalAlign = HorizontalAlign.Center
+                    tRow.Cells.Add(tCell)
+                    RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>%" & Convert.ToDouble(carritoDescuentoEDIT(i)) & "</td>"
+                    '-------------------------------------
+                    'PRECIO CON DESCUENTO
+                    '-------------------------------------
+                    tCell = New TableCell()
+                    If CInt(carritoDescuentoEDIT(i)) <= 0 Then
+                        tCell.Text = ReadXML(restring, "Currency") + " " + String.Format("{0:N}", Convert.ToDouble(carritoprecio(i)))
+                        precioYaConDescuento = Convert.ToDouble(carritoprecio(i))
+                    Else
+                        tCell.Text = ReadXML(restring, "Currency") + " " + String.Format("{0:N}", Convert.ToDouble((Convert.ToDouble(carritoprecio(i)) - (Convert.ToDouble(carritoDescuentoEDIT(i)) / 100) * Convert.ToDouble(carritoprecio(i)))))
+                        precioYaConDescuento = Convert.ToDouble((Convert.ToDouble(carritoprecio(i)) - (Convert.ToDouble(carritoDescuentoEDIT(i)) / 100) * Convert.ToDouble(carritoprecio(i))))
+                    End If
+                    tRow.Cells.Add(tCell)
+                    RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td>"
+                    '-------------------------------------
+                    'PRECIO * CANTIDAD = TOTAL DE LINEA
+                    '-------------------------------------
+                    tCell = New TableCell()
+                    totalxarticulo = precioYaConDescuento * carritocan(i)
+                    totalxarticulo = Convert.ToDouble(totalxarticulo)
+                    tCell.Text = Session("RazMON") + " " + Convert.ToDouble(totalxarticulo.ToString).ToString("N2", CultureInfo.CreateSpecificCulture("en-US"))
+
+                    RowPolo += "<td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
+                    TablaPolo += RowPolo
+                    tRow.Cells.Add(tCell)
+
+                    '-------------------------------------
+                    'NOTA DE ARTICULO
+                    '------------------------- 
+                    'tCell = New TableCell()
+                    'tCell.Text = "<input id='row" & i & "' type='text' size='' value='" & carritoNotaArt(i) & "' onchange=' NotaArt(this.value,id)'>"
+                    'tCell.HorizontalAlign = HorizontalAlign.Center
+                    'tRow.Cells.Add(tCell)
+
+                    Dim monedaartic As String = ReadXML(restring, "Currency")
+                    subtotal = subtotal + totalxarticulo
+                    sqldato = " SELECT top 20 t2.ItemCode, t2.U_IL_iva, t3.rate   FROM   OITM t2  inner join  OSTC t3 on t2.U_IL_iva=t3.Code   where t2.ItemCode ='" & carrito(i) & "' "
+                    Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
+                    totaliva = ReadXML(Respuesta.InnerXml, "rate")
+                    carritoiva.Insert(i, ReadXML(Respuesta.InnerXml, "U_IL_iva"))
+                    If totaliva > 0 Then
+                        Session("Sumaivas") = Session("Sumaivas") + (totalxarticulo * totaliva / 100)
+                        mystring = Session("Sumaivas")
+                    End If
+                    Table1.Rows.Add(tRow)
+                Next
+            End If
+            Session("ivas") = carritoiva
+            tRow = New TableRow()
+            For x = 1 To 4
+                tCell = New TableCell()
+                tCell.Text = " "
+                tRow.Cells.Add(tCell)
+            Next
+            'tCell = New TableHeaderCell()
+            'tCell.Text = "Subtotal"
+            'tCell.HorizontalAlign = HorizontalAlign.Right
+            'tRow.Cells.Add(tCell)
+            tCell = New TableCell()
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 
+            '-------------------------------------
+            'SUBTOTAL
+            '-------------------------------------
+            tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", Convert.ToDouble(subtotal))
+            RowPolo = " <tr><td></td><td></td><td></td><td></td><td style='border: solid 1px #575656; background: #ffffff'>Subtotoal</td><td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
+            SubTotalCompra.Text = "  " + tCell.Text
+            'tRow.Cells.Add(tCell)
+            'Table1.Rows.Add(tRow)
+            'tRow = New TableRow()
+            'For x = 1 To 4
+            'tCell = New TableCell()
+            'tCell.Text = " "
+            'tRow.Cells.Add(tCell)
+            'Next
+            'tCell = New TableHeaderCell()
+            'tCell.Text = "Impuesto"
+            'tRow.Cells.Add(tCell)
+            tCell = New TableCell()
+            '-------------------------------------
+            'IMPUESTO
+            '-------------------------------------
+            tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", Session("Sumaivas"))
+            RowPolo += " <tr><td></td><td></td><td></td><td></td><td style='border: solid 1px #575656; background: #ffffff'>Impuesto</td><td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
+            IvaCompra.Text = "  " + tCell.Text
+            'tRow.Cells.Add(tCell)
+            'Table1.Rows.Add(tRow)
+            'tRow = New TableRow()
+            'For x = 1 To 4
+            'tCell = New TableCell()
+            'tCell.Text = " "
+            'tRow.Cells.Add(tCell)
+            'Next
+            'tCell = New TableHeaderCell()
+            'tCell.Text = "Total"
+            'tCell.HorizontalAlign = HorizontalAlign.Right
+            'tRow.Cells.Add(tCell)
+            tCell = New TableCell()
+            '-------------------------------------
+            'TOTAL
+            '-------------------------------------
+            tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", Convert.ToDouble(subtotal) + Session("Sumaivas"))
+            '------------------Tabla Envio Mail-------------------
+            RowPolo += " <tr><td ></td><td></td><td></td><td></td><td style='border: solid 1px #575656; background: #ffffff'>Total</td><td style='border: solid 1px #575656; background: #ffffff'>" & tCell.Text & "</td></tr>"
+            TotalCompra.Text = "  " + tCell.Text
+            TablaPolo += RowPolo
+            If Session("usutipo") = "venta" Then
+                TablaPolo = "Socio de Negocio: " & Session("RazName") & "<br><br>" & TablaPolo
+            Else
+                TablaPolo = "Socio de Negocio: " & Session("usuName") & "<br><br>" & TablaPolo
+            End If
+            Session("pedidoTableHTML") = TablaPolo
+            'tRow.Cells.Add(tCell)
+            Table1.Rows.Add(tRow)
+            Session("carritoDescuentoEDIT") = carritoDescuentoEDIT
+        Catch ex As Exception
+            Dim ectraoficial As String = ex.Message
+        End Try
     End Sub
 
     Protected Sub secretbutton_ServerClick(sender As Object, e As EventArgs) Handles secretbutton.ServerClick
@@ -249,7 +260,8 @@ Partial Class View_Ventas_OrdenCarrito
                             carritocan(actuaid.Value) = actuacan.Value
                             Session("carritocan") = carritocan
                             Session("carritoDescuentoEDIT") = carritoDescuentoEDIT
-                            Response.Redirect("~/View/Ventas/OrdenCarrito.aspx")
+                            CargarCarrito()
+                            'Response.Redirect("~/View/Ventas/OrdenCarrito.aspx")
                         End If
                     Catch ex As Exception
                         Response.Redirect("~/View/Ventas/OrdenCarrito.aspx")
@@ -291,7 +303,8 @@ Partial Class View_Ventas_OrdenCarrito
                         If carrito.Count = 0 Then
                             Limpiarcarro_ServerClick("", Nothing)
                         End If
-                        Response.Redirect("OrdenCarrito.aspx")
+                        CargarCarrito()
+                        'Response.Redirect("OrdenCarrito.aspx")
                     End If
                 End If
             Else
@@ -314,15 +327,117 @@ Partial Class View_Ventas_OrdenCarrito
         'Session("carritoNotaArt") = Nothing
         Session("carritoDescuentoEDIT") = Nothing
 
-        Response.Redirect("~/View/Ventas/Orden.aspx")
+        Response.Redirect("~/View/Ventas/Catalogo.aspx")
+    End Sub
+
+    Protected Sub LlenarEstado()
+        '//**Creacion 17/01/2017**//
+        '//Update 20/01/2017
+        Try
+            Dim Sql As String = "Select T0.D_Estado " &
+                                "From EcommerceSF.dbo.TAEM T0 " &
+                                "Where (T0.C_Estado='06' or T0.C_Estado='14' or T0.C_Estado='16')"
+
+            cnn.Open()
+            cmd = New SqlClient.SqlCommand(Sql, cnn)
+            dr = cmd.ExecuteReader()
+
+            '--------->Recorrer todos los registros de la consulta
+            Estado.DataSource = dr
+            Estado.DataTextField = "D_Estado"
+            Estado.DataValueField = "D_Estado"
+            Estado.DataBind()
+            Estado.Items.Insert(0, New ListItem("- Seleccione Estado- ", "00"))
+            cnn.Close()
+            dr.Close()
+        Catch ex As Exception
+            cnn.Close()
+            dr.Close()
+            Dim fail As String = ex.Message
+            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & fail & "');  ", True)
+        End Try
+
+    End Sub
+
+    Protected Sub Estado_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Estado.SelectedIndexChanged
+        '//**Creacion 18/01/2017**//
+        '//Update 20/01/2017
+        If Estado.SelectedValue = "00" Then
+            Municipio.Enabled = False
+            Municipio.Items.Clear()
+        Else
+            Try
+                CargarCarrito()
+                Municipio.Enabled = True
+                Dim Sql As String = "Select T0.D_Municipio " &
+                                    "From EcommerceSF.dbo.TAMM T0 " &
+                                    "	Inner Join EcommerceSF.dbo.TAEM T1 ON (T1.C_Estado=T0.C_Estado) " &
+                                    "Where T1.D_Estado='" & Estado.SelectedValue & "'"
+
+                cnn.Open()
+                cmd = New SqlClient.SqlCommand(Sql, cnn)
+                dr = cmd.ExecuteReader()
+
+                '--------->Recorrer todos los registros de la consulta
+                Municipio.DataSource = dr
+                Municipio.DataTextField = "D_Municipio"
+                Municipio.DataValueField = "D_Municipio"
+                Municipio.DataBind()
+                Municipio.Items.Insert(0, New ListItem("- Seleccione Municipio -", "00"))
+                cnn.Close()
+                dr.Close()
+            Catch ex As Exception
+                cnn.Close()
+                dr.Close()
+                Dim fail As String = ex.Message
+                ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & fail & "');  ", True)
+            End Try
+        End If
+    End Sub
+
+    Protected Sub Municipio_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Municipio.SelectedIndexChanged
+        '//**Creacion 18/01/2017**//
+        '//Update 20/01/2017
+        If Municipio.SelectedValue = "00" Then
+            Colonia.Enabled = False
+            Colonia.Items.Clear()
+        Else
+            Try
+                CargarCarrito()
+                Colonia.Enabled = True
+                Dim Sql As String = "Select T0.D_Asentamiento " &
+                                    "From EcommerceSF.dbo.TAAM T0 " &
+                                    "	Inner Join EcommerceSF.dbo.TAEM T1 ON (T1.C_Estado=T0.C_Estado) " &
+                                    "	Inner Join EcommerceSF.dbo.TAMM T2 ON (T2.C_Municipio=T0.C_Municipio) " &
+                                    "Where T1.D_Estado='" & Estado.SelectedValue & "' and T2.D_Municipio='" & Municipio.SelectedValue & "'"
+
+                cnn.Open()
+                cmd = New SqlClient.SqlCommand(Sql, cnn)
+                dr = cmd.ExecuteReader()
+
+                '--------->Recorrer todos los registros de la consulta
+                Colonia.DataSource = dr
+                Colonia.DataTextField = "D_Asentamiento"
+                Colonia.DataValueField = "D_Asentamiento"
+                Colonia.DataBind()
+                Colonia.Items.Insert(0, New ListItem("- Seleccione Colonia -", "00"))
+                cnn.Close()
+                dr.Close()
+            Catch ex As Exception
+                cnn.Close()
+                dr.Close()
+                Dim fail As String = ex.Message
+                ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & fail & "');  ", True)
+            End Try
+        End If
     End Sub
 
     Protected Sub regresar_ServerClick(sender As Object, e As EventArgs) Handles regresar.ServerClick
-        Response.Redirect("~/View/Ventas/Orden.aspx")
+        Response.Redirect("~/View/Ventas/Catalogo.aspx")
     End Sub
 
     Protected Sub agregaorden()
-        '//Update 11/01/2017
+        '//Update 20/01/2017
         Try
             ws = New DIS.DIServer
             ws.Url = Serveriii
@@ -336,7 +451,7 @@ Partial Class View_Ventas_OrdenCarrito
             Dim answer As Date = Today.AddDays(15)
             Dim fechastring = answer.ToString("yyyyMMdd")
             Dim subtotal As Double = 0
-            Dim orden As String = "", Objeto As String = Nothing
+            Dim orden As String = "", Objeto As String = Nothing, Embarque As String = Nothing
             If IsNothing(Session("carrito")) Then
 
             Else
@@ -348,20 +463,27 @@ Partial Class View_Ventas_OrdenCarrito
                 carritoDescuentoEDIT = CType(Session("carritoDescuentoEDIT"), ArrayList)
                 'carritoNotaArt = CType(Session("carritoNotaArt"), ArrayList)
 
-                If Session("tipodocventas") = "pedido" Then
+                If TipoDoc.Checked Then
                     Objeto = "oOrders"
                 Else
                     Objeto = "oQuotations"
                 End If
+
+                If TipoEntrega.Checked Then
+                    Embarque = "Entrega a Domicilio"
+                Else
+                    Embarque = "El cliente se lo lleva"
+                End If
+
                 '---Borrar es solo para ver caso de ejemplo
-                Objeto = "oQuotations"
+                'Objeto = "oQuotations"
                 '----Creacion de BOMdata 
                 '----Crear metodo para establecer almacen default antes de realizar la venta(pedido) en bomdata
                 orden = "" &
                         "<BOM xmlns='http://www.sap.com/SBO/DIS'><BO><AdmInfo><Object>" & Objeto & "</Object>" &
                         "</AdmInfo><Documents><row> <DocDueDate>" & fechastring & "</DocDueDate><Comments>" & TextArea1.InnerText & "</Comments>" &
-                        "<CardCode>" & Session("RazCode") & "</CardCode><SalesPersonCode>89</SalesPersonCode><U_embarque>Entrega a Domicilio</U_embarque>" &
-                        "<U_FPago>" & U_FPago.Value & "</U_FPago><U_PagoFiscal>" & U_PagoFiscal.Value & "</U_PagoFiscal><U_Fac>" & U_Fac.Value & "</U_Fac>" &
+                        "<CardCode>" & Session("RazCode") & "</CardCode><SalesPersonCode>89</SalesPersonCode><U_embarque>" & Embarque & "</U_embarque>" &
+                        "<U_PagoFiscal>" & U_PagoFiscal.Value & "</U_PagoFiscal><U_Fac>" & U_Fac.Value & "</U_Fac>" &
                         "</row></Documents><Document_Lines>"
                 For i As Integer = 0 To carrito.Count - 1
                     orden = orden + "" &
@@ -371,12 +493,11 @@ Partial Class View_Ventas_OrdenCarrito
                 orden = orden + "</Document_Lines>" &
                                         "<AddressExtension>" &
                                             "<row>" &
-                                                "<BillToStreet>" & Domicilio.Value & "</BillToStreet>" &
+                                                "<BillToStreet>" & Colonia.SelectedValue & "</BillToStreet>" &
                                                 "<BillToStreetNo>" & Referencia.Value & "</BillToStreetNo>" &
-                                                "<BillToBlock>" & Comunidad.Value & "</BillToBlock>" &
+                                                "<BillToBlock>" & Estado.SelectedValue & "-" & Municipio.SelectedValue & "</BillToBlock>" &
                                                 "<BillToCity>" & Telefono.Value & "</BillToCity>" &
                                                 "<BillToZipCode>" & Contacto.Value & "</BillToZipCode>" &
-                                                "<BillToCounty>" & Hora_E.Value & "</BillToCounty>" &
                                             "</row>" &
                                         "</AddressExtension>" &
                                 "</BO></BOM>"
@@ -401,7 +522,7 @@ Partial Class View_Ventas_OrdenCarrito
 
                     'EnvioMailPedido("leopoldo.delatorre@interlatin.com.mx", "leopoldo.delatorre@interlatin.com.mx")
 
-                    ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento " & Session("tipodocventas") & " creado. ');document.location.href='Catalogo';", True)
+                    ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento creado con Exito. ');document.location.href='Catalogo';", True)
                 Else
                     errorr = Replace(errorr, "'", "")
                     Me.Page.ClientScript.RegisterStartupScript(Me.GetType(), "aleasrt", "alert('" & errorr & "');document.location.href='OrdenCarrito';", True)
@@ -454,6 +575,33 @@ Partial Class View_Ventas_OrdenCarrito
         End If
     End Sub
 
+    Protected Sub DatosCliente()
+        '//**Creacion 20/01/2017**//
+        '//Update 20/01/2017
+        Try
+            '--Realizar busqueda XML
+            Dim Sql As String = "Select T0.CardCode,T0.CardName,T0.LicTradNum,T1.PymntGroup,T0.U_NCuneta " &
+                                "From NuevaBD.dbo.OCRD T0 " &
+                                "Inner Join NuevaBD.dbo.OCTG T1 On (T1.GroupNum=T0.GroupNum) " &
+                                "Where T0.CardCode='" & Session("RazCode") & "'"
+            ws = New DIS.DIServer
+            XmlDoc.LoadXml(ws.ExecuteSQL(Session("Token"), Sql).InnerXml)
+            Node = XmlDoc.FirstChild.LastChild.Clone.ChildNodes
+
+            '---Recorrer Busqueda
+            For Each Nodo As XmlNode In Node
+                DatoCliente.Text = Nodo("CardCode").InnerText
+                DatoNombre.Text = Nodo("CardName").InnerText
+                DatoRFC.Text = Nodo("LicTradNum").InnerText
+                DatoCP.Text = Nodo("PymntGroup").InnerText
+                DatoCB.Text = Nodo("U_NCuneta").InnerText
+            Next
+
+        Catch ex As Exception
+            Dim fail As String = ex.Message
+            ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & fail & "');  ", True)
+        End Try
+    End Sub
 
     Protected Sub Mailer()
         '   <table style="width:100%"  border="1">
@@ -609,10 +757,5 @@ Partial Class View_Ventas_OrdenCarrito
 
             'Return ex.Message
         End Try
-
-
-
-
-
     End Sub
 End Class

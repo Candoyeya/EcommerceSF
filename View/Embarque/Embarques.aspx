@@ -6,34 +6,26 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <!--Inicia Cuerpo pagina-->
 
-        <div class="container-fluid">           
-            <!--<div class="block-header">
-                <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
-                </h2>
-            </div>       -->     
-            <!-- Exportable Table -->
+        <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h3>
-                                Confirmar Pedido
-                            </h3>
-                            <!--
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>-->
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-blue hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">check_box</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Confirmar Pedido</h3></div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <br />
+                            <br />
+                            <br />
+                            <h3>                                
+                            </h3> 
                         </div>
                         <div class="body">
                             <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server">
@@ -82,5 +74,40 @@
             </div>
             <!-- #END# Exportable Table -->           
         </div>
+<%--Script java...--%>
+    <%--Cargar tabla con opciones y traducir al español...--%>
+    <%--Ultima actualizacion 23/12/2016...--%>
+<script>
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar en resultados:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+            $('#Table1').DataTable();
+    } );
+</script>
 </asp:Content>
 

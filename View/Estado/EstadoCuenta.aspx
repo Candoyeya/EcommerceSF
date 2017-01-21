@@ -4,22 +4,26 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <!--Inicia Cuerpo pagina-->
-
-        <div class="container-fluid">           
-            <!--<div class="block-header">
-                <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
-                </h2>
-            </div>       -->     
-            <!-- Exportable Table -->
+        <div class="container-fluid">  
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                Estado de Cuenta
-                            </h2>                            
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-orange hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">view_list</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Estado de Cuenta</h3></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br /> 
+                            <h3>                                
+                            </h3>                            
                         </div>
                         <div class="body" runat="server">                            
                             <div class="demo-masked-input">

@@ -39,6 +39,7 @@
                             <div class="row clearfix">
                                 <div class="col-md-3">
                                     <div class="align-left">
+
                                         <div><span class="font-bold">Cliente:</span><asp:Label ID="viewCliente" runat="server" Text=""></asp:Label></div>
                                         <div><span class="font-bold">Nombre:</span><asp:Label ID="viewCardName" runat="server" Text=""></asp:Label></div>
                                         <div><span class="font-bold">Moneda del Documento:</span><asp:Label ID="viewmoneda" runat="server" Text=""></asp:Label></div>  

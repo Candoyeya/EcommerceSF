@@ -168,7 +168,7 @@ Partial Class Pedidos
                                     End If
                                 Case "DocEntry"
                                     tCell = New TableCell()
-                                    tCell.Text = "<button class='btn btn-info' id='row" & rootin.ChildNodes(x).InnerText & "'       onclick='ver( id)'>Ver <i class='fa fa-eye'></i></button>"
+                                    tCell.Text = "<div class='button-demo'><button class='btn btn-primary waves-effect' id='row" & rootin.ChildNodes(x).InnerText & "'       onclick='ver( id)'>Ver <i class='material-icons'>assignment</i></i></button></div>"
                                     tCell.HorizontalAlign = HorizontalAlign.Center
                                     tRow.Cells.Add(tCell)
 

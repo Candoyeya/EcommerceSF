@@ -311,12 +311,6 @@
 
             <%--<asp:Button ID="btnConfirm" runat="server" OnClick = "OnConfirm" Text = "Raise Confirm" OnClientClick = "Confirm()"/>--%>
 
-
-
-
-
-
-
             <script>
                 function myFunction(val, id) {
 

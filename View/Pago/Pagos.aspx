@@ -6,21 +6,26 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
        <!--Inicia Cuerpo pagina-->
 
-        <div class="container-fluid">           
-            <!--<div class="block-header">
-                <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
-                </h2>
-            </div>       -->     
-            <!-- Exportable Table -->
+        <div class="container-fluid"> 
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                Pagos
-                            </h2>                            
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-green hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">monetization_on</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Pagos</h3></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br /> 
+                            <h3>
+                            </h3>                            
                         </div>
                         <div class="body" runat="server">                            
                             <div class="demo-masked-input">
@@ -81,5 +86,40 @@
             </div>
             <!-- #END# Exportable Table -->           
         </div>
+<%--Script java...--%>
+    <%--Cargar tabla con opciones y traducir al español...--%>
+    <%--Ultima actualizacion 12/01/2017...--%>
+<script>
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar en resultados:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+            $('#Table1').DataTable();
+    } );
+</script>
 </asp:Content>
 

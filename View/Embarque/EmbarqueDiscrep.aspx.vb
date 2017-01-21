@@ -252,12 +252,43 @@ Partial Class EmbarqueDiscrep
                 "'" & valor & "','" & TextArea1.Value & "','" & imgstring & "','" & DropDownList1.SelectedValue & "','1' )"
                 Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
 
-
-                sqldato = " <env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>   <env:Header>    <SessionID>" & Session("Token") & "</SessionID>   </env:Header>   <env:Body>    <dis:SendMessage xmlns:dis='http://www.sap.com/SBO/DIS'>     <Service>MessagesService</Service>      <Message>       <Subject>Discrepancia del Socio: " & Session("usuName") & "</Subject>       <Text>Entrega:  " & Session("DocNumDis") & " - " & TextArea1.Value & " </Text>       <RecipientCollection>        <Recipient>         <UserCode>manager</UserCode>         <SendInternal>tYES</SendInternal>        </Recipient>       </RecipientCollection>              </Message>     </dis:SendMessage>   </env:Body>  </env:Envelope>"
+                '====Mensaje 1======
+                sqldato = " <env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>" &
+                                "<env:Header>" &
+                                    "<SessionID>" & Session("Token") & "</SessionID>" &
+                                "</env:Header>" &
+                                "<env:Body>" &
+                                    "<dis:SendMessage xmlns:dis='http://www.sap.com/SBO/DIS'>" &
+                                        "<Service>MessagesService</Service>" &
+                                        "<Message>" &
+                                            "<Subject>Discrepancia del Socio: " & Session("usuName") & "</Subject>" &
+                                            "<Text>Entrega:  " & Session("DocNumDis") & " - " & TextArea1.Value & " </Text>" &
+                                            "<RecipientCollection>" &
+                                                "<Recipient>" &
+                                                    "<UserCode>manager</UserCode>" &
+                                                    "<UserCode>Gsia1</UserCode>" &
+                                                    "<UserCode>Admin</UserCode>" &
+                                                    "<SendInternal>tYES</SendInternal>" &
+                                                "</Recipient>" &
+                                            "</RecipientCollection>" &
+                                        "</Message>" &
+                                    "</dis:SendMessage>" &
+                                "</env:Body>" &
+                            "</env:Envelope>"
 
                 '" & TextArea1.Value & "','" & Session("RazCode") & "','Admin','" & id & "','" & DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") & "')"
                 ws.Interact(Session("Token"), sqldato)
+                '====Mensaje 2======
+                'sqldato = " <env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>   <env:Header>    <SessionID>" & Session("Token") & "</SessionID>   </env:Header>   <env:Body>    <dis:SendMessage xmlns:dis='http://www.sap.com/SBO/DIS'>     <Service>MessagesService</Service>      <Message>       <Subject>Discrepancia del Socio: " & Session("usuName") & "</Subject>       <Text>Entrega:  " & Session("DocNumDis") & " - " & TextArea1.Value & " </Text>       <RecipientCollection>        <Recipient>         <UserCode>Marco</UserCode>         <SendInternal>tYES</SendInternal>        </Recipient>       </RecipientCollection>              </Message>     </dis:SendMessage>   </env:Body>  </env:Envelope>"
 
+                '" & TextArea1.Value & "','" & Session("RazCode") & "','Admin','" & id & "','" & DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") & "')"
+                'ws.Interact(Session("Token"), sqldato)
+
+                '====Mensaje 3======
+                'sqldato = " <env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>   <env:Header>    <SessionID>" & Session("Token") & "</SessionID>   </env:Header>   <env:Body>    <dis:SendMessage xmlns:dis='http://www.sap.com/SBO/DIS'>     <Service>MessagesService</Service>      <Message>       <Subject>Discrepancia del Socio: " & Session("usuName") & "</Subject>       <Text>Entrega:  " & Session("DocNumDis") & " - " & TextArea1.Value & " </Text>       <RecipientCollection>        <Recipient>         <UserCode>Gsia1</UserCode>         <SendInternal>tYES</SendInternal>        </Recipient>       </RecipientCollection>              </Message>     </dis:SendMessage>   </env:Body>  </env:Envelope>"
+
+                '" & TextArea1.Value & "','" & Session("RazCode") & "','Admin','" & id & "','" & DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") & "')"
+                'ws.Interact(Session("Token"), sqldato)
                 Try
                     ws = New DIS.DIServer
                     ws.Url = Serveriii

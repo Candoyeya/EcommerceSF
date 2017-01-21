@@ -17,8 +17,21 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                SALDOS PENDIENTES
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-red hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">attach_money</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Saldos Pendientes</h3></div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <h2>                                
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">

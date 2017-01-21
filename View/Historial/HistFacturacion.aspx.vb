@@ -178,7 +178,7 @@ Partial Class HistFacturacion
 
 
                                 Case "EDocNum"
-                                    edoc = rootin.ChildNodes(x).InnerText
+                                    'edoc = rootin.ChildNodes(x).InnerText
 
                                 Case "DocDate"
                                     tCell = New TableCell()
@@ -296,7 +296,7 @@ Partial Class HistFacturacion
 
             tCell = New TableCell()
             'tCell.Text = Session("currency") + " " + String.Format("{0:N}", Convert.ToDouble(root.ChildNodes(i).InnerText))
-            tCell.Text = Session("currency") + " " + String.Format("{0:N}", totalSuma)
+            tCell.Text = Session("RazMON") + " " + String.Format("{0:N}", totalSuma)
             tCell.HorizontalAlign = HorizontalAlign.Right
             tRow.Cells.Add(tCell)
             Table1.Rows.Add(tRow)

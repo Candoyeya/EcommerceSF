@@ -98,7 +98,7 @@
                     <li class="   " runat="server" id="carritolink">
                             <a href="<%= ResolveClientUrl("~/View/Ventas/Ordencarrito.aspx") %>">
                                 <asp:ContentPlaceHolder ID="CP2" runat="server">
-                                    <span class="carrito">Carrito de compra</span><i class="material-icons">shopping_cart</i><span id="carritonoti" runat="server" class="label-count"></span>
+                                    <i class="material-icons">shopping_cart</i><span id="carritonoti" runat="server" class="label-count"></span>
                                 </asp:ContentPlaceHolder>
                             </a>
                     </li>
@@ -269,7 +269,7 @@
                     &copy; 2016 <a href="javascript:void(0);">E-Commerce Surtidora Ferretera</a>.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 16.12.28
+                    <b>Version: </b> 17.01.11
                 </div>
             </div>
             <!-- #Footer -->           

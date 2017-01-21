@@ -1,5 +1,5 @@
 ﻿Imports Modulo
-
+Imports System.Data
 Imports System.Xml
 Imports System.Globalization
 Partial Class Embarques
@@ -14,6 +14,16 @@ Partial Class Embarques
                 ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert(' error " & ex.Message & "');  ", True)
             End Try
         End If
+    End Sub
+
+    Protected Sub CargarPedidos()
+        '//**Creacion 13/01/2017**//
+        '//Update 13/01/2017
+        Dim sql As String = "select T0.DocDate as fecha,  T0.DocNum as entrega  , T1.BaseRef as pedido ,T0.Address2 as destino,T0.TrackNo as guia " &
+                            "from ODLN T0 inner join DLN1 T1 on T0.DocEntry = T1.DocEntry   where CardCode='" & Session("RazCode") & "' and    " &
+                            "U_IL_estado  &lt; &gt;'c'  group by T1.BaseRef ,T0.DocDate  , T0.Address2,T0.TrackNo,T0.DocNum order by  T0.DocNum desc"
+
+
     End Sub
 
     Protected Sub cargaEmbarque()

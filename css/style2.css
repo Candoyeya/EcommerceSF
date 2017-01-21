@@ -4926,7 +4926,7 @@ section.content {
   -ms-border-radius: 0;
   border-radius: 0; }
 
-/* Input Group ================================= */
+/* Input Group ================================= 
 .input-group {
   width: 100%;
   margin-bottom: 20px; }
@@ -4998,7 +4998,7 @@ section.content {
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     -ms-box-shadow: none !important;
-    box-shadow: none !important; }*/
+    box-shadow: none !important; }
 
 .input-group.input-group-sm .input-group-addon i {
   font-size: 14px; }
@@ -5015,12 +5015,12 @@ section.content {
 .form-control-label {
   text-align: right; }
   .form-control-label label {
-    margin-top: 8px; }
+    margin-top: 8px; }*/
 
 /*.form-horizontal .form-group {
   margin-bottom: 0; }
-
-.form-group {
+/*form-group______________________________________*/
+/*.form-group {
   width: 100%;
   margin-bottom: 25px; }
   .form-group .form-control {

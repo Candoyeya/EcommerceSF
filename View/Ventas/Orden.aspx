@@ -17,25 +17,37 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h3>
-                                Orden de Compra
-                            </h3>                            
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-green hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">shopping_cart</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Orden de Compra</h3></div>
+                                        
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <br />
+                                <br />
+                                <div class="input-group">
+                                    <input id="Item" runat="server" type="text" class="form-control" placeholder="Buscar Articulo..."/>
+                                    <span class="input-group-btn" runat="server">
+                                    <button id="BtnBuscar" runat="server" class="btn btn-default" type="button">
+                                        <i class="material-icons">search</i>
+                                    </button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <h3></h3>                           
                         </div>                        
                         <div class="body">
                             <!--Fila 1--> 
-                            <div class="row">
-                                <!--tamaño de div-->
-                                <div class="col-lg-6">
-                                    <div class="input-group">
-                                      <input id="Item" runat="server" type="text" class="form-control" placeholder="Buscar Articulo..."/>
-                                      <span class="input-group-btn" runat="server">
-                                        <button id="BtnBuscar" runat="server" class="btn btn-default" type="button">
-                                            <i class="material-icons">search</i>
-                                        </button>
-                                      </span>
-                                    </div><!-- /input-group -->
-                                </div>
-                            </div>  
+                            
                             <!--Fila 2-->   
                             <div class="row  ">
                                 <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12 " runat="server" id="Div1">
