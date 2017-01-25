@@ -5,7 +5,6 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
        <!--Inicia Cuerpo pagina-->
-
         <div class="container-fluid"> 
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -86,6 +85,7 @@
             </div>
             <!-- #END# Exportable Table -->           
         </div>
+    </div>
 <%--Script java...--%>
     <%--Cargar tabla con opciones y traducir al español...--%>
     <%--Ultima actualizacion 12/01/2017...--%>

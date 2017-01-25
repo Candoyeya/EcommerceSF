@@ -367,7 +367,7 @@ Partial Class View_Ventas_OrdenCarrito
             Municipio.Items.Clear()
         Else
             Try
-                CargarCarrito()
+                'CargarCarrito()
                 Municipio.Enabled = True
                 Dim Sql As String = "Select T0.D_Municipio " &
                                     "From EcommerceSF.dbo.TAMM T0 " &
@@ -403,7 +403,7 @@ Partial Class View_Ventas_OrdenCarrito
             Colonia.Items.Clear()
         Else
             Try
-                CargarCarrito()
+                'CargarCarrito()
                 Colonia.Enabled = True
                 Dim Sql As String = "Select T0.D_Asentamiento " &
                                     "From EcommerceSF.dbo.TAAM T0 " &
@@ -522,7 +522,11 @@ Partial Class View_Ventas_OrdenCarrito
 
                     'EnvioMailPedido("leopoldo.delatorre@interlatin.com.mx", "leopoldo.delatorre@interlatin.com.mx")
 
-                    ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento creado con Exito. ');document.location.href='Catalogo';", True)
+                    If Objeto = "oOrders" Then
+                        ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento creado con Exito. ');document.location.href='Catalogo';", True)
+                    Else
+                        ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('Documento creado con Exito.(Nota: Valido por 24Hrs) ');document.location.href='Catalogo';", True)
+                    End If
                 Else
                     errorr = Replace(errorr, "'", "")
                     Me.Page.ClientScript.RegisterStartupScript(Me.GetType(), "aleasrt", "alert('" & errorr & "');document.location.href='OrdenCarrito';", True)

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="OrdenCarrito.aspx.vb" Inherits="View_Ventas_OrdenCarrito" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="VerCotizaciones.aspx.vb" Inherits="View_Ventas_VerCotizaciones" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -19,7 +19,7 @@
                                         <i class="material-icons">shopping_cart</i>
                                     </div>
                                     <div class="content">
-                                        <div class="text"><h3>Carrito de Compra</h3></div>
+                                        <div class="text"><h3>Vista de Cotizacion</h3></div>
                                     </div>
                                 </div>
                             </div>                    
@@ -32,6 +32,13 @@
                         <div class="body"> 
                             <asp:ScriptManager id="ScriptManager1" runat="server"></asp:ScriptManager>
                             <!--Fila 1--> 
+                            <div class="row">
+                                <!--Columna 1--> 
+                                <div class="col-lg-4 col-md-2"></div>
+                                    <div id="Advertencia" runat="server" class="col-lg-4 col-md-4"></div>
+                                <div class="col-lg-4 col-md-2"></div>
+                            </div>
+                            <!--Fila 2--> 
                             <div class="row">
                                 <!--Columna 1--> 
                                 <div class="col-lg-2 col-md-2">
@@ -65,7 +72,7 @@
                                 <!--Columna 3--> 
                                 <div class="col-md-1"></div>
                             </div>
-                            <!--Fila 2--> 
+                            <!--Fila 3--> 
                             <div class="row">                                
                                 <!--Columna 1--> 
                                 <div class="col-md-6">
@@ -136,7 +143,7 @@
                                                     <option value="08">Vales de Despensa</option>
                                                     <option value="28">Tarjeta de Debito</option>
                                                     <option value="29">Tarjeta de Servicio.</option>
-                                                    <option value="98">NA</option>
+                                                    <option value="NA">NA</option>
                                                     <option value="99">Otros.</option>
                                                 </select> 
                                                  <br />
@@ -158,27 +165,26 @@
                                     </div></fieldset>                                      
                                 </div>
                             </div>   
-                            <!--Fila 3--> 
+                            <!--Fila 4--> 
                             <div class="row">                                
                                 <div id="tablaprueba" runat="server" style="width: auto; overflow-x: auto;">
                                     <div style="min-width: 600px;">                                        
                                         <asp:UpdatePanel id="UpdatePanel2" UpdateMode="Conditional" runat="server">
                                             <ContentTemplate>
-                                                <asp:Table ID="Table1" class="gvv" runat="server" Style="width: 100%; min-width: 600px">
-                                                    <asp:TableHeaderRow>
-                                                        <asp:TableHeaderCell>Articulo</asp:TableHeaderCell>
-                                                        <asp:TableHeaderCell>Cantidad</asp:TableHeaderCell>
-                                                        <asp:TableHeaderCell>Precio unitario</asp:TableHeaderCell>
-                                                        <asp:TableHeaderCell>Descuento</asp:TableHeaderCell>
-                                                        <asp:TableHeaderCell>Precio tras descuento</asp:TableHeaderCell>
-                                                        <%--<asp:TableHeaderCell>Descuento</asp:TableHeaderCell>--%>
-                                                        <asp:TableHeaderCell>Precio total</asp:TableHeaderCell>
-                                                            <%--<asp:TableHeaderCell>Nota de Articulo</asp:TableHeaderCell>--%>
-                                                    </asp:TableHeaderRow>
-                                                </asp:Table>
+                                                <asp:GridView ID="GVCotizacion" runat="server" ShowFooter="false" AutoGenerateColumns="False"
+                                                                ShowHeaderWhenEmpty="true" EmptyDataText = "No hay Coincidencias"
+                                                                CellPadding="4" GridLines="None" Class="gvv display">
+                                                    <Columns>
+                                                        <asp:BoundField DataField="ItemName" HeaderText="Articulo" HeaderStyle-Height="5" HeaderStyle-Width="350"/>
+                                                        <asp:BoundField DataField="Quantity" HeaderText="Cantidad" />
+                                                        <asp:BoundField DataField="Price" HeaderText="Precio unitario" />
+                                                        <asp:BoundField DataField="LineTotal" HeaderText="Precio total" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                                
                                                  <%--Script java...--%>
                                                     <%--Cargar tabla con opciones y traducir al español...--%>
-                                                    <%--Ultima actualizacion 19/01/2017...--%>
+                                                    <%--Ultima actualizacion 23/01/2017...--%>
                                                 <script>
                                                         $(document).ready(function () {
                                                             $(".gvv").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({
@@ -208,7 +214,7 @@
                                                                     }
                                                                 }
                                                             });
-                                                            $('#Table1').DataTable();
+                                                            $('#GVCotizacion').DataTable();
                                                     } );
                                                 </script>
                                             </ContentTemplate>
@@ -217,7 +223,7 @@
                                     </div>
                                 </div>  
                             </div>
-                            <!--Fila 4--> 
+                            <!--Fila 5--> 
                             <div class="row" runat="server">
                                 <!--Columna 1-->
                                 <div class="col-sm-9"></div>
@@ -242,116 +248,27 @@
                                     </asp:Table>
                                 </div>
                             </div>   
-                            <!--Fila 5--> 
+                            <!--Fila 6--> 
                             <div class="row">
                                 <!--Columna 1-->
-                                <div class="col-sm-10">
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <br />                                            
-                                            <div class="button-demo">
-                                                <button type="button" runat="server" id="regresar" class="btn btn-primary waves-effect">
-                                                    <i class="material-icons">add_shopping_cart</i>  Continuar agregando
-                                                </button>
-                                            </div>   
-                                            <br /> 
-                                            <div class="button-demo">
-                                                <button type="button" runat="server" id="Limpiarcarro" class="btn btn-danger waves-effect">
-                                                    Limpiar carrito <i class="material-icons">remove_shopping_cart</i>
-                                                </button>
-                                            </div>                                           
-                                            
-                                        </div>                                        
-                                    </div>                                    
-                                </div>
+                                <div class="col-sm-10"></div>
                                 <!--Columna 2-->
                                 <div class="col-sm-1">
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <br />
                                             <div class="button-demo">
-                                                <asp:LinkButton type="button" runat="server" ID="confirmar" OnClick="OnConfirm" class="btn btn-success waves-effect" OnClientClick="Confirm()"><i class="material-icons">shopping_cart</i>Confirmar</asp:LinkButton>
-                                                                                                
+                                                <asp:LinkButton type="button" runat="server" ID="BtnEnviar" class="btn btn-success waves-effect"><i class="material-icons">shopping_cart</i>Realizar Pedido</asp:LinkButton>
                                             </div>
                                         </div>
                                     </div>                                    
                                 </div> 
                             </div> 
-
-                            <input type="text" runat="server" id="actuacan" clientidmode="Static" style="display: none" />
-                            <input type="text" runat="server" id="actuaid" clientidmode="Static" style="display: none" />
-                            <button id="secretbutton" runat="server" class="btn btn-default" type="button" style="display: none">dois</button>
-                            <button id="cambioPorcentaje" runat="server" class="btn btn-default" type="button" style="display: none">dois</button>
-                            <button id="cambioNota" runat="server" class="btn btn-default" type="button" style="display: none">dois</button>
-
-
-                            <script type="text/javascript">
-                                function Confirm() {
-                                    var confirm_value = document.createElement("INPUT");
-                                    confirm_value.type = "hidden";
-                                    confirm_value.name = "confirm_value";
-                                    if (confirm("Desea agregar este documento?")) {
-                                        confirm_value.value = "Ok";
-                                    } else {
-                                        confirm_value.value = "Cancel";
-                                    }
-                                    document.forms[0].appendChild(confirm_value);
-                                }
-                            </script>
-
-                            <%--<asp:Button ID="btnConfirm" runat="server" OnClick = "OnConfirm" Text = "Raise Confirm" OnClientClick = "Confirm()"/>--%>
-
-
-                            <script>
-                                function myFunction(val, id) {
-
-                                    if (val < 1) {
-                                        var confirm_value = document.createElement("INPUT");
-                                        confirm_value.type = "hidden";
-                                        confirm_value.name = "confirm_value";
-                                        if (confirm("Desea borrar del carrito?")) {
-                                            document.getElementById("actuacan").value = val;
-                                            document.getElementById("actuaid").value = id.substring(3, id.length);
-                                            confirm_value.value = "Ok";
-                                        } else {
-                                            confirm_value.value = "Cancel";
-                                        }
-                                        document.forms[0].appendChild(confirm_value);
-                                    }
-                                    else {
-                                        var confirm_value = document.createElement("INPUT");
-                                        confirm_value.type = "hidden";
-                                        confirm_value.name = "confirm_value";
-                                        confirm_value.value = "Ok";
-                                        document.getElementById("actuacan").value = val;
-                                        document.getElementById("actuaid").value = id.substring(3, id.length);
-                                        document.forms[0].appendChild(confirm_value);
-                                    }
-
-                                    document.getElementById('<%= secretbutton.ClientID%>').click();
-                                    reload();
-                                }
-
-                                function porcentaje(val, id) {
-                                    document.getElementById("actuacan").value = val;
-                                    document.getElementById("actuaid").value = id.substring(3, id.length);
-                                    document.getElementById('<%= cambioPorcentaje.ClientID%>').click();
-                                        reload();
-                                    }
-
-                                    function NotaArt(val, id) {
-                                        document.getElementById("actuacan").value = val;
-                                        document.getElementById("actuaid").value = id.substring(3, id.length);
-                                        document.getElementById('<%= cambioNota.ClientID%>').click();
-                                    reload();
-                                }
-                            </script>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- #END# Exportable Table -->           
         </div>
-
 </asp:Content>
 

@@ -54,19 +54,37 @@ Partial Class View_Mensaje_Msj
                         End If
                     Next s
                 End If
-                Dim divs As String = ""
+                Dim Html As String = ""
+                Html = "<div class='chat_window'><ul class='messages'>"
                 For v = 0 To CInt(totalrows)
                     If twoDarray(v, 0) = Nothing Then
                     Else
                         If twoDarray(v, 5) = Session("RazCode") Then
-                            divs = divs + " <div class='bubble bubble-alt green'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
+                            Html = Html + "<li class='message right appeared'>" &
+                                                "<div class='avatar'></div>" &
+                                                "<div class='text_wrapper'>" &
+                                                    "<div class='text'>" & twoDarray(v, 1) & "</div>" &
+                                                    "<div class='text'>" & twoDarray(v, 2) & "</div>" &
+                                                "</div>" &
+                                            "</li>"
+                            'Html = Html + " <div class='bubble bubble-alt green'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
                         Else
-                            divs = divs + " <div class='bubble'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
+                            Html = Html + "<li class='message left appeared'>" &
+                                                "<div class='avatar'></div>" &
+                                                "<div class='text_wrapper'>" &
+                                                    "<div class='text'>" & twoDarray(v, 1) & "</div>" &
+                                                    "<div class='text'>" & twoDarray(v, 2) & "</div>" &
+                                                "</div>" &
+                                            "</li>"
+                            ' Html = Html + " <div class='bubble'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
                         End If
                     End If
                 Next v
-                mensajesapliados.InnerHtml = divs
+                Html = Html + "</ul></div>"
+                mensajesapliados.InnerHtml = Html
             Catch ex As Exception
+                Dim fail As String = ex.Message
+                ClientScript.RegisterStartupScript(Me.[GetType](), "aleasrt", "alert('" & fail & "');  ", True)
             End Try
         End If
     End Sub
@@ -75,7 +93,7 @@ Partial Class View_Mensaje_Msj
     Protected Sub secretbutton_ServerClick(sender As Object, e As EventArgs) Handles secretbutton.ServerClick
         Try
             Session("msj") = actuaid.Value
-            Response.Redirect("View/Embarque/EmbarqueDiscrep.aspx")
+            Response.Redirect("~/View/Embarque/EmbarqueDiscrep.aspx")
         Catch ex As Exception
         End Try
     End Sub

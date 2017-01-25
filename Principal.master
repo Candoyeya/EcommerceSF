@@ -21,8 +21,8 @@
     <!-- Waves Effect Css -->
     <link href="~/plugins/node-waves/waves.css" rel="stylesheet" />
 
-    <!-- Animation Css 
-    <link href="~/plugins/animate-css/animate.css" rel="stylesheet" />-->
+    <!-- Animation Css -->
+    <link href="~/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="~/css/font-awesome.min.css"/>
@@ -48,6 +48,10 @@
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="~/js/alt/jquery.min.js"></script>-->
     <script src="<%= ResolveClientUrl("~/js/alt/jquery.min.js") %>"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-slimscroll/jquery.slimscroll.js") %>"></script>
+
     <!-- Bootstrap Core Js         
     <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
     <script src="~/js/alt/bootstrap.min.js"></script>-->
@@ -90,7 +94,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="<%= ResolveClientUrl("~/View/Inicio.aspx") %>">SURTIDORA FERRETERA</a>
+                <a class="navbar-brand" href="<%= ResolveClientUrl("~/View/Inicio.aspx") %>"><label>SURTIDORA FERRETERA</label></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -159,10 +163,24 @@
                     </li>
                     <!-- Link orden de compra -->
                     <li>
-                        <a href="<%= ResolveClientUrl("~/View/Ventas/Catalogo.aspx") %>">
+                        <a href="#" class="menu-toggle">
                             <i class="material-icons">shopping_cart</i>
-                            <span>Orden de Compra</span>
+                            <span>Ventas</span>
                         </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="<%= ResolveClientUrl("~/View/Ventas/Catalogo.aspx") %>">
+                                    <i class="material-icons">shopping_cart</i>
+                                    <span>Ventas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<%= ResolveClientUrl("~/View/Ventas/Cotizaciones.aspx") %>">
+                                    <i class="material-icons">shopping_cart</i>
+                                    <span>Cotizaciones previas</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                      <!-- Link Confirmacion de embarque -->
                     <li>
@@ -269,7 +287,7 @@
                     &copy; 2016 <a href="javascript:void(0);">E-Commerce Surtidora Ferretera</a>.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 17.01.11
+                    <b>Version: </b> 25.01.11
                 </div>
             </div>
             <!-- #Footer -->           

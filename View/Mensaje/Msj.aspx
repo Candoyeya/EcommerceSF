@@ -4,50 +4,44 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<link href="~/css/alt/ChatSF.css" rel="stylesheet" />
 <!--Inicia Cuerpo pagina-->
-        <div class="container-fluid">           
-            <!--<div class="block-header">
-                <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
-                </h2>
-            </div>       -->     
-            <!-- Exportable Table -->
+        <div class="container-fluid"> 
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                SALDOS PENDIENTES
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-blue hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">chat</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Conversacion</h3></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br /> 
+                            <h3>                                
+                            </h3> 
                         </div>
                         
                         <div class="body">    
                             <div class="container">
                                 <div style="padding-bottom: 10px" >
-                                    <button runat="server" id="btnregresar" type="button" class="btn btn-default" aria-label="Left Align">
-                                        <i class='fa fa-arrow-left '></i>Regresar
+                                    <button runat="server" id="btnregresar" type="button" class="btn btn-success waves-effect" aria-label="Left Align">
+                                        <i class="material-icons">arrow_back</i>Regresar
                                     </button>
                                 </div>
                                 <div runat="server" id="mensajesapliados"></div>
                                 <div>
                                     <textarea id="TextArea1" style="max-width: 600px;" rows="3" runat="server" class="form-control"></textarea>
                                 </div>
-                                <div style="width: 170px; margin-left: auto">
-                                    <button runat="server" id="enviarpinshimensaje" style="width: 170px; margin-left: auto" type="button" class="btn btn-default" aria-label="Right Align">
-                                        Eviar mensaje <i class='fa  fa-envelope-o  '></i>
+                                <div style="width: 500px; margin-left: auto">
+                                    <button runat="server" id="enviarpinshimensaje" style="width: 170px; margin-left: auto" type="button" class="btn btn-primary waves-effect" aria-label="Right Align">
+                                        Enviar mensaje <i class="material-icons">email</i>
                                     </button>
                                 </div>
                             </div>

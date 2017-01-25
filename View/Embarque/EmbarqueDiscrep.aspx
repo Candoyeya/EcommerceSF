@@ -52,15 +52,15 @@
                                         <!--Lista de codigo de articulos-->
                                         <h2 class="card-inside-title">Código:</h2>  
                                         <br />
-                                        <div class="btn-group dropup">
-                                            <asp:DropDownList ID="DropDownList1" runat="server" class="btn btn-default waves-effect"></asp:DropDownList>
+                                        <div class="input-group">
+                                            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control"></asp:DropDownList>
                                         </div>
                                     
                                         <!--Lista de discrepancias-->      
                                         <h2 class="card-inside-title">Discrepancia:</h2>                                 
                                         <br />
-                                        <div class="btn-group dropup">
-                                            <asp:DropDownList ID="DropDownList2" runat="server" class="btn btn-default waves-effect">
+                                        <div class="input-group">
+                                            <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control">
                                                     <asp:ListItem>Dañado</asp:ListItem>
                                                     <asp:ListItem>Faltante</asp:ListItem>
                                                     <asp:ListItem>Otro</asp:ListItem>
@@ -70,22 +70,16 @@
                                     <!--Candidad dañada/faltante--> 
                                     <h2 class="card-inside-title">Cantidad:</h2>                                     
                                     <br />
-                                    <div class="col-md-6">
-                                        <div class="input-group spinner" data-trigger="spinner">
-                                            <div class="form-line">
-                                                <input type="text" runat="server" id="Cantidad" class="form-control text-center" value="1" data-rule="quantity"/>
-                                            </div>
-                                            <span class="input-group-addon">
-                                                <a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>
-                                                <a href="javascript:;" class="spin-down" data-spin="down"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                            </span>
-                                        </div>
-                                    </div>                                
                                     
+                                    <div class="input-group spinner" data-trigger="spinner">
+                                        <div class="form-line">
+                                            <input type="text" runat="server" id="Cantidad" class="form-control text-center" value="1" data-rule="quantity"/>
+                                        </div>
+                                    </div>
+                                                                   
+                                    <br /> 
                                     <!--Cargar imagen-->  
-                                    <h2 class="card-inside-title">Imagen:</h2>                                  
-                                    <br />                                   
-
+                                    <h2 class="card-inside-title">Imagen:</h2>    
                                     <asp:FileUpload ID="File1" runat="server" class="btn btn-success btn-lg waves-effect" accept="image/*"/>                           
                                 </div>
                                 <div class="col-xs-12 col-md-6   ">                                    

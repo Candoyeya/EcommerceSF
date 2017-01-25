@@ -5,35 +5,34 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <!--Inicia Cuerpo pagina-->
-        <div class="container-fluid">           
-            <!--<div class="block-header">
-                <h2>
-                    JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
-                </h2>
-            </div>       -->     
-            <!-- Exportable Table -->
+        <div class="container-fluid">  
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                Mensajes
-                            </h2>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-blue hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">forum</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Mensajes</h3></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br /> 
+                            <h3>                                
+                            </h3> 
                         </div>
                         
-                        <div class="body">    
-                            <script>
-                                $('.input-group.date').datepicker({
-                                    autoclose: true, format: 'yyyy-mm-dd'
-                                });
-                            </script>            
-           
+                        <div class="body" >          
                             <div style="width: auto; overflow-x: auto;"> 
                                 <div style="width: 236px; margin-left: auto; margin-right: auto;">
                                     <div style="width: 170px; margin-left: auto;margin-right: auto;">
-                                        <button id="enviarpinshimensaje" onclick="lansa()" style="width: 170px; margin-left: auto" type="button" class="btn btn-default">
-                                            Nuevo mensaje <i class='fa  fa-envelope-o  '></i>
+                                        <button id="enviarpinshimensaje" onclick="lansa()" style="width: 170px; margin-left: auto" type="button" class="btn btn-success waves-effect">
+                                            Nuevo mensaje <i class="material-icons">email</i>
                                         </button>                       
                                     </div>
                                      <br />
@@ -56,12 +55,12 @@
                             </div>
                             <div style="width: auto; overflow-x: auto;"> 
                                 <div style="min-width: 600px;">
-                                    <asp:Table ID="Table1" class="table abc" runat="server" Style="width: 100%; min-width: 600px">
+                                    <asp:Table ID="Table1" class="gvv display" runat="server" Style="width: 100%; min-width: 600px">
                                         <asp:TableHeaderRow>
                                             <asp:TableHeaderCell>Fecha</asp:TableHeaderCell>
                                             <asp:TableHeaderCell>Asunto</asp:TableHeaderCell>
                                             <asp:TableHeaderCell>Estado</asp:TableHeaderCell>
-                                            <asp:TableHeaderCell>Leer</asp:TableHeaderCell>
+                                            <asp:TableHeaderCell></asp:TableHeaderCell>
                                         </asp:TableHeaderRow>
                                     </asp:Table>
                                 </div>
@@ -89,5 +88,40 @@
             </div>
             <!-- #END# Exportable Table -->           
         </div>
+ <%--Script java...--%>
+    <%--Cargar tabla con opciones y traducir al español...--%>
+    <%--Ultima actualizacion 24/01/2017...--%>
+<script>
+        $(document).ready(function () {
+            $(".gvv").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar en resultados:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+            $('#Table1').DataTable();
+    } );
+</script>
 </asp:Content>
 

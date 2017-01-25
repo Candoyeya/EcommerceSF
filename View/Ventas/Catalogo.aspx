@@ -19,7 +19,7 @@
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                                 <div class="info-box bg-green hover-zoom-effect">
                                     <div class="icon">
-                                        <i class="material-icons">shopping_cart</i>
+                                        <i class="material-icons">store</i>
                                     </div>
                                     <div class="content">
                                         <div class="text"><h3>Catalogos</h3></div>

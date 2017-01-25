@@ -4,7 +4,18 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-           <!--Inicia Cuerpo pagina-->
+<!--Inicia CCS-------------------------------------------------------------------------->
+    <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
+
+<!--Inicia JS------------------------------------------------------------------------------------------>     
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/jszip.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/pdfmake.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/vfs_fonts.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/plugins/jquery-datatable/extensions/export/buttons.print.min.js") %>"></script>      
+    <!--Inicia Cuerpo pagina-->
 
         <div class="container-fluid">
             <div class="row clearfix">
@@ -96,7 +107,7 @@
 
                                 }
                             </script>
-                            <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable js-exportable" runat="server">
+                            <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server">
                                <asp:TableHeaderRow > 
                                     <asp:TableHeaderCell>Fecha</asp:TableHeaderCell>
                                     <asp:TableHeaderCell>Vencimiento</asp:TableHeaderCell>
@@ -157,7 +168,8 @@
     <%--Ultima actualizacion 12/01/2017...--%>
 <script>
         $(document).ready(function () {
-            $(".table").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable({
+            $(".table").prepend($("<thead></thead><tfoot></tfoot>").append($(this).find("tr:first"))).dataTable(
+                {
                 "language":
                 {
                     "sProcessing": "Procesando...",
@@ -183,7 +195,8 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
                 }
-            });
+
+                });
             $('#Table1').DataTable();
     } );
 </script>
