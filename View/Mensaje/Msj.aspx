@@ -4,7 +4,8 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<link href="~/css/alt/ChatSF.css" rel="stylesheet" />
+<link href="<%= ResolveClientUrl("~/css/alt/ChatSF.css") %>" rel="stylesheet" />
+    
 <!--Inicia Cuerpo pagina-->
         <div class="container-fluid"> 
             <div class="row clearfix">
@@ -30,19 +31,28 @@
                         
                         <div class="body">    
                             <div class="container">
-                                <div style="padding-bottom: 10px" >
+                                <!-- Fila 1 -->
+                                <div class="row">
                                     <button runat="server" id="btnregresar" type="button" class="btn btn-success waves-effect" aria-label="Left Align">
                                         <i class="material-icons">arrow_back</i>Regresar
                                     </button>
+                                    <br />
                                 </div>
-                                <div runat="server" id="mensajesapliados"></div>
-                                <div>
-                                    <textarea id="TextArea1" style="max-width: 600px;" rows="3" runat="server" class="form-control"></textarea>
+                                <!-- Fila 2 -->
+                                <div class="row">
+                                    <div runat="server" id="mensajesapliados"></div>
                                 </div>
-                                <div style="width: 500px; margin-left: auto">
-                                    <button runat="server" id="enviarpinshimensaje" style="width: 170px; margin-left: auto" type="button" class="btn btn-primary waves-effect" aria-label="Right Align">
-                                        Enviar mensaje <i class="material-icons">email</i>
-                                    </button>
+                                <!-- Fila 3 -->
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 ">
+                                        <textarea id="TextArea1" style="max-width: 600px;" rows="3" runat="server" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 "></div>
+                                    <div class="col-lg-5 col-md-5 ">
+                                        <button runat="server" id="enviarpinshimensaje" style="width: 170px; margin-left: auto" type="button" class="btn btn-primary waves-effect" aria-label="Right Align">
+                                            Enviar mensaje <i class="material-icons">email</i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <!-- @end .container -->

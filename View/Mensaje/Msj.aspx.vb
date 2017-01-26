@@ -55,32 +55,32 @@ Partial Class View_Mensaje_Msj
                     Next s
                 End If
                 Dim Html As String = ""
-                Html = "<div class='chat_window'><ul class='messages'>"
+                Html = "<div id='mensajes'>"
                 For v = 0 To CInt(totalrows)
                     If twoDarray(v, 0) = Nothing Then
                     Else
                         If twoDarray(v, 5) = Session("RazCode") Then
-                            Html = Html + "<li class='message right appeared'>" &
-                                                "<div class='avatar'></div>" &
-                                                "<div class='text_wrapper'>" &
-                                                    "<div class='text'>" & twoDarray(v, 1) & "</div>" &
-                                                    "<div class='text'>" & twoDarray(v, 2) & "</div>" &
+                            Html = Html + "<div class='mensaje-autor'>" &
+                                                "<div class='flecha-izquierda'></div>" &
+                                                "<div class='contenido'>" &
+                                                    "" & twoDarray(v, 1) & "<br />" &
+                                                    "" & twoDarray(v, 2) & "<br />" &
                                                 "</div>" &
-                                            "</li>"
+                                            "</div>"
                             'Html = Html + " <div class='bubble bubble-alt green'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
                         Else
-                            Html = Html + "<li class='message left appeared'>" &
-                                                "<div class='avatar'></div>" &
-                                                "<div class='text_wrapper'>" &
-                                                    "<div class='text'>" & twoDarray(v, 1) & "</div>" &
-                                                    "<div class='text'>" & twoDarray(v, 2) & "</div>" &
+                            Html = Html + "<div class='mensaje-amigo'>" &
+                                                "<div class='contenido'>" &
+                                                    "" & twoDarray(v, 1) & "<br />" &
+                                                    "" & twoDarray(v, 2) & "<br />" &
                                                 "</div>" &
-                                            "</li>"
+                                                "<div class='flecha-derecha'></div>" &
+                                            "</div>"
                             ' Html = Html + " <div class='bubble'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
                         End If
                     End If
                 Next v
-                Html = Html + "</ul></div>"
+                Html = Html + "</div>"
                 mensajesapliados.InnerHtml = Html
             Catch ex As Exception
                 Dim fail As String = ex.Message

@@ -47,7 +47,7 @@
                                         </button>                       
                                     </div>
                                      <br />
-                                        <!-- Modal -->
+                                        <!-- Modal 26/01/2016-->
                                           <div class="modal fade" id="myModal" role="dialog">
                                             <div class="modal-dialog">
                                               <!-- Modal content-->
@@ -127,6 +127,7 @@
                                     //document.getElementById('<%= secretbutton.ClientID%>').click(); 
                                     //reload(); 
                                 }
+                                
                             </script>
                         </div>
                     </div>
