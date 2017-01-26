@@ -27,7 +27,7 @@
                                         <i class="material-icons">forum</i>
                                     </div>
                                     <div class="content">
-                                        <div class="text"><h3>Mensajes</h3></div>
+                                        <div class="text"><h3>Bandeja</h3></div>
                                     </div>
                                 </div>
                             </div>

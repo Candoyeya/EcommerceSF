@@ -64,7 +64,7 @@ Partial Class View_Mensaje_MensajesAdm
                                     Case "conver"
                                         tCell = New TableCell()
                                         tCell.HorizontalAlign = HorizontalAlign.Center
-                                        tCell.Text = "<button class='btn btn-info' id='row" & rootin.ChildNodes(x).InnerText & "'       onclick='discre( id)'> Leer <i class='fa fa-eye'> </i></button>"
+                                        tCell.Text = "<div class='icon-button-demo m-t-25'><button class='btn bg-teal btn-circle-lg waves-effect waves-circle waves-float' id='row" & rootin.ChildNodes(x).InnerText & "'       onclick='discre( id)'><i class='material-icons'>forum</i></button></div>"
                                         tCell.HorizontalAlign = HorizontalAlign.Center
                                         tRow.Cells.Add(tCell)
                                 End Select

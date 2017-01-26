@@ -19,7 +19,7 @@ Partial Class View_Mensaje_Msj
                 Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
                 Dim totalrows As String = ReadXML(Respuesta.InnerXml, "total")
                 Dim twoDarray(CInt(totalrows), 10) As String
-                sqldato = " select   U_fecha,  U_asunto,U_mensaje as msj,U_cadena ,U_estado,U_emisor as edo from [Ecom].[dbo].[@IL_MENSAJES] where CONVERT(NVARCHAR(MAX), U_cadena)='" & Session("msj") & "' order by U_fecha ASC "
+                sqldato = " select   U_fecha,  U_asunto,U_mensaje as msj,U_cadena ,U_estado,U_emisor as edo,Name from [Ecom].[dbo].[@IL_MENSAJES] where CONVERT(NVARCHAR(MAX), U_cadena)='" & Session("msj") & "' order by U_fecha ASC "
 
                 Respuesta = ws.ExecuteSQL(Session("Token"), sqldato)
                 Dim doc2 As New XmlDocument()
@@ -49,6 +49,8 @@ Partial Class View_Mensaje_Msj
                                         twoDarray(s, x) = rootin.ChildNodes(x).InnerText
                                     Case "edo"
                                         twoDarray(s, x) = rootin.ChildNodes(x).InnerText
+                                    Case "Name"
+                                        twoDarray(s, x) = rootin.ChildNodes(x).InnerText
                                 End Select
                             Next x
                         End If
@@ -59,11 +61,11 @@ Partial Class View_Mensaje_Msj
                 For v = 0 To CInt(totalrows)
                     If twoDarray(v, 0) = Nothing Then
                     Else
-                        If twoDarray(v, 5) = Session("RazCode") Then
+                        If twoDarray(v, 6) = Session("usuName") Then
                             Html = Html + "<div class='mensaje-autor'>" &
                                                 "<div class='flecha-izquierda'></div>" &
                                                 "<div class='contenido'>" &
-                                                    "" & twoDarray(v, 1) & "<br />" &
+                                                    "<label>" & Session("usuName") & "</label><br />" &
                                                     "" & twoDarray(v, 2) & "<br />" &
                                                 "</div>" &
                                             "</div>"
@@ -71,12 +73,12 @@ Partial Class View_Mensaje_Msj
                         Else
                             Html = Html + "<div class='mensaje-amigo'>" &
                                                 "<div class='contenido'>" &
-                                                    "" & twoDarray(v, 1) & "<br />" &
+                                                    "<label>" & twoDarray(v, 6) & "</label><br />" &
                                                     "" & twoDarray(v, 2) & "<br />" &
                                                 "</div>" &
                                                 "<div class='flecha-derecha'></div>" &
                                             "</div>"
-                            ' Html = Html + " <div class='bubble'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
+                            'Html = Html + " <div class='bubble'><p>" & twoDarray(v, 1) & "</p><Br><p>" & twoDarray(v, 2) & "</p></div>"
                         End If
                     End If
                 Next v
