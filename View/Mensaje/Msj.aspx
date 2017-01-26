@@ -14,7 +14,7 @@
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                                 <div class="info-box bg-blue hover-zoom-effect">
                                     <div class="icon">
-                                        <i class="material-icons">chat</i>
+                                        <i class="material-icons">drafts</i>
                                     </div>
                                     <div class="content">
                                         <div class="text"><h3>Conversacion</h3></div>
