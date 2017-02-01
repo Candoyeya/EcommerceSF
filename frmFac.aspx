@@ -34,8 +34,8 @@
 
                 <div style="max-width: 307px; margin-left: auto; margin-right: auto">
                     <asp:RadioButtonList runat="server" ID="radios" onchange="return selectValue();" RepeatLayout="Flow" CssClass="labels">
-                        <asp:ListItem    Text="Mostrar facturas vencidas" Value="factuavencida"   ></asp:ListItem>
-                        <asp:ListItem  Text="Mostrar facturas vencidas por fecha" Value="factuavencidaxfecha"></asp:ListItem>
+                        <asp:ListItem Text="Mostrar facturas vencidas" Value="factuavencida"   ></asp:ListItem>
+                        <asp:ListItem Text="Mostrar facturas vencidas por fecha" Value="factuavencidaxfecha"></asp:ListItem>
                         <asp:ListItem Text="Mostrar facturas por fecha" Value="factuaxfecha"></asp:ListItem>
                     </asp:RadioButtonList>
                 </div>     

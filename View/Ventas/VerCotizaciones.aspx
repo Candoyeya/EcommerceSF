@@ -258,7 +258,8 @@
                                         <div class="col-sm-5">
                                             <br />
                                             <div class="button-demo">
-                                                <asp:LinkButton type="button" runat="server" ID="BtnEnviar" class="btn btn-success waves-effect"><i class="material-icons">shopping_cart</i>Realizar Pedido</asp:LinkButton>
+                                                <button type="button" runat="server" id="BtnEnviar" class="btn btn-success waves-effect"><i class="material-icons">shopping_cart</i>Realizar Pedido</button>
+                                                
                                             </div>
                                         </div>
                                     </div>                                    

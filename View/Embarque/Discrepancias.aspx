@@ -17,15 +17,27 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                Discrepancias del Cliente
-                            </h2>                            
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="info-box bg-red hover-zoom-effect">
+                                    <div class="icon">
+                                        <i class="material-icons">report_problem</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text"><h3>Discrepancias del Cliente</h3></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br /> 
+                            <h3>                                
+                            </h3>                    
                         </div>
                         
                         <div class="body">    
                             <div style="width: auto; overflow-x: auto;"> 
                                 <div style="min-width: 600px;"> 
-                                    <asp:Table ID="Table1" class="table abc" runat="server" Style="width: 100%; min-width: 600px">
+                                    <asp:Table ID="Table1" class="table table-bordered table-striped table-hover dataTable" runat="server" Style="width: 100%; min-width: 600px">
                                         <asp:TableHeaderRow>
                                             <asp:TableHeaderCell>Fecha</asp:TableHeaderCell>
                                             <asp:TableHeaderCell>Entrega</asp:TableHeaderCell>

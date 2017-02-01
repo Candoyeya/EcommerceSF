@@ -23,7 +23,7 @@
     background-color: #fdfcff;
 	padding: 10px;
 	height: 400px;
-	width: 1000px;
+	width: auto;
 	overflow: hidden;
 	overflow-y: scroll 
 }
@@ -44,7 +44,7 @@
 	font-size: 13px;
 	padding: 15px;
 	vertical-align: top;
-	width: 900px;
+	width: auto;
 }
 #mensajes .mensaje-autor .fecha{
 	color: #777;
@@ -75,7 +75,7 @@
 	font-size: 13px;
 	padding: 15px;
 	vertical-align: top;
-	width: 900px;
+	width: auto;
 }
 #mensajes .mensaje-amigo .flecha-derecha{
 	display: inline-block;

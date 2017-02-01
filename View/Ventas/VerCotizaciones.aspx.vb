@@ -8,10 +8,12 @@ Partial Class View_Ventas_VerCotizaciones
     Inherits System.Web.UI.Page
     Dim DocNum As String, DocDate As String, TipoEmbarque As String, TipoPago As String, TipoFac As String
     Dim ColReg As String, MunReg As String, EstReg As String
+    Dim EstatusValido As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         '//Update 23/01/2017
         If Not Page.IsPostBack Then
             Try
+                EstatusValido = "Y"
                 DatosCliente()
                 Municipio.Enabled = False
                 Colonia.Enabled = False
@@ -61,6 +63,7 @@ Partial Class View_Ventas_VerCotizaciones
         If (Validar) > 1 Then
             'BtnEnviar.Enabled = False
             BtnEnviar.Attributes.Add("disabled", "disabled")
+            EstatusValido = "N"
             Dim html As String = "<div class='info-box bg-orange hover-zoom-effect'>" &
                                     "<div Class='icon'>" &
                                         "<i class='material-icons'>warning</i>" &
@@ -314,8 +317,11 @@ Partial Class View_Ventas_VerCotizaciones
         End If
     End Sub
 
-    Protected Sub BtnEnviar_ServerClick(sender As Object, e As EventArgs) Handles BtnEnviar.Click
-        EnviarPedido()
+    Protected Sub BtnEnviar_ServerClick(sender As Object, e As EventArgs) Handles BtnEnviar.ServerClick
+        If EstatusValido = "Y" Then
+            EnviarPedido()
+        End If
+
     End Sub
 
     Protected Sub EnviarPedido()

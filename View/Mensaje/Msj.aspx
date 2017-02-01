@@ -40,12 +40,14 @@
                                 </div>
                                 <!-- Fila 2 -->
                                 <div class="row">
-                                    <div runat="server" id="mensajesapliados"></div>
+                                    <div class="col-lg-11 col-md-11 ">
+                                        <div runat="server" id="mensajesapliados"></div>
+                                    </div>                                    
                                 </div>
                                 <!-- Fila 3 -->
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 ">
-                                        <textarea id="TextArea1" style="max-width: 600px;" rows="3" runat="server" class="form-control"></textarea>
+                                        <textarea id="TextArea1" rows="3" runat="server" class="form-control"></textarea>
                                     </div>
                                     <div class="col-lg-1 col-md-1 "></div>
                                     <div class="col-lg-5 col-md-5 ">

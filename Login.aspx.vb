@@ -158,7 +158,7 @@ Partial Class Login
                         Session("usdrate") = ReadXML(Respuesta.InnerXml, "rate")
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img  from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Session("Imagen") = "data:image/png;base64," & ReadXML(Respuesta.InnerXml, "img")
-                        Response.Redirect("~/View/Embarque/DiscrepanciaAdm.aspx")
+                        Response.Redirect("~/View/Mensaje/MensajesAdm.aspx")
                     Else
                         Respuesta = ws.ExecuteSQL(Session("Token"), "select img   from [Ecom].[dbo].[perfil] where usu='" & Session("usuCode") & "'")
                         Session("Imagen") = "data:image/png;base64," & ReadXML(Respuesta.InnerXml, "img")
@@ -239,7 +239,7 @@ Partial Class Login
 
     Public Function buscaCliente() As Boolean
         Dim Respuesta As XmlNode
-        Respuesta = ws.ExecuteSQL(Session("Token"), "Select top 1 T0.CardCode,T0.CardName,T0.Address,T0.ZipCode,T0.Currency,T0.E_Mail from OCRD T0 where CardCode='" & usu.Text & "' AND U_IL_pass='" & pass.Text & "'")
+        Respuesta = ws.ExecuteSQL(Session("Token"), "Select top 1 T0.CardCode,T0.CardName,T0.Address,T0.ZipCode,T0.Currency,T0.E_Mail,T0.LicTradNum from OCRD T0 where CardCode='" & usu.Text & "' AND U_IL_pass='" & pass.Text & "'")
 
         Dim doc2 As New XmlDocument()
         doc2.LoadXml(Respuesta.InnerXml)
@@ -280,6 +280,8 @@ Partial Class Login
                         Session("MailDestino") = root2.ChildNodes(x).InnerText
                         'Case "U_IL_imagen"
                         '    Session("Imagen") = "data:image/png;base64," + root2.ChildNodes(x).InnerText
+                    Case "LicTradNum"
+                        Session("RfcCliente") = root2.ChildNodes(x).InnerText
                 End Select
             Next x
 
